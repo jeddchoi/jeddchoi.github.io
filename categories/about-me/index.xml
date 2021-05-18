@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Jed Choi&#39;s Blog</title>
-    <link>https://jeddchoi.github.io/</link>
-    <description>Recent content on Jed Choi&#39;s Blog</description>
+    <title>about-me on Jed Choi&#39;s Blog</title>
+    <link>https://jeddchoi.github.io/categories/about-me/</link>
+    <description>Recent content in about-me on Jed Choi&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Dec 2020 22:09:12 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Dec 2020 22:09:12 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/categories/about-me/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>자기소개서</title>
       <link>https://jeddchoi.github.io/posts/my_first_post/</link>
@@ -15,8 +15,6 @@
       <guid>https://jeddchoi.github.io/posts/my_first_post/</guid>
       <description>Introduce myself</description>
     </item>
-    
-    
     
   </channel>
 </rss>
