@@ -2,21 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://jeddchoi.github.io/</loc>
-    <lastmod>2020-12-25T22:09:12+09:00</lastmod>
+    <loc>https://jeddchoi.github.io/categories/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jeddchoi.github.io/posts/</loc>
-    <lastmod>2020-12-25T22:09:12+09:00</lastmod>
+    <loc>https://jeddchoi.github.io/tags/css/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/tags/html/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/tags/markdown/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jeddchoi.github.io/posts/my_first_post/</loc>
-    <lastmod>2020-12-25T22:09:12+09:00</lastmod>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/posts/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/series/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/categories/syntax/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/tags/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/tags/themes/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/categories/themes/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jeddchoi.github.io/series/themes-guide/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jeddchoi.github.io/archives/</loc>
   </url><url>
-    <loc>https://jeddchoi.github.io/categories/</loc>
-  </url><url>
     <loc>https://jeddchoi.github.io/search/</loc>
-  </url><url>
-    <loc>https://jeddchoi.github.io/tags/</loc>
   </url>
 </urlset>
