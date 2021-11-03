@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C Reference | Jed Choi&#39;s Blog</title>
+<meta name="keywords" content="c, language" />
+<meta name="description" content="C 언어 참고문서">
+<meta name="author" content="Jed Choi">
+<link rel="canonical" href="https://jeddchoi.github.io/posts/c-reference/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.2d6dbfc6e0f8a1db1c9d082a76dc11d094328cf63f247bbc2421dfaa7f2bb170.css" integrity="sha256-LW2/xuD4odscnQgqdtwR0JQyjPY/JHu8JCHfqn8rsXA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://jeddchoi.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://jeddchoi.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://jeddchoi.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://jeddchoi.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://jeddchoi.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.85.0" />
+<meta property="og:title" content="C Reference" />
+<meta property="og:description" content="C 언어 참고문서" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jeddchoi.github.io/posts/c-reference/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-02T13:11:28&#43;09:00" />
+<meta property="article:modified_time" content="2021-11-03T16:46:40&#43;09:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C Reference"/>
+<meta name="twitter:description" content="C 언어 참고문서"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://jeddchoi.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "C Reference",
+      "item": "https://jeddchoi.github.io/posts/c-reference/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C Reference",
+  "name": "C Reference",
+  "description": "C 언어 참고문서",
+  "keywords": [
+    "c", "language"
+  ],
+  "articleBody": "자료형 자료형은 데이터를 표현하는 기준(데이터를 표현하는 방법)이다. 때문에 변수도 상수도 자료형에 근거한다.\n  변수는 값이 메모리 공간에 저장 및 참조되는 방식에 따라서 정수형과 실수형으로 나뉜다.\n  C표준에서는 자료형 별 크기를 정확히 제한하고 있지 않다. 즉, 컴파일러마다 차이가 있으니까 조심해야 한다.   컴퓨터는 2진수를 기반으로 데이터를 표현하고 연산도 진행한다.\n  정수형  가장 왼쪽의 비트(MSB)는 부호비트로 사용 음의 정수를 표현할 때에는 2의 보수를 취한다.  1의 보수를 취한다.(0과 1 반전) 1을 더한다.   +n에다가 2의 보수를 취하면 -n이 되고, -n에 다가 2의 보수를 취하면 +n이 된다. 즉, 양수일때만 2의 보수를 취하는게 아님 일반적으로 CPU가 처리하기에 가장 적합한 크기의 정수 자료형을 int로 정의한다. 따라서 int형 연산의 속도가 다른 자료형의 연산속도에 비해서 동일하거나 더 빠르다. 데이터의 양이 많아서 연산속도보다 데이터의 크기를 줄이는 것이 더 중요한 경우 short와 같은 자료형을 활용한다. 정수 자료형에만 unsigned를 붙일 수 있다. 보통은 signed가 붙으나 안 붙으나 같은 의미이지만 컴파일러에 따라 signed char != char일 수 있다. char은 정수형이다. 즉, 문자도 결국 정수를 저장한 것이다. ex. char ch = 'A';은 컴파일러에 의해 char ch = 65;로 바뀐다.  실수형  컴퓨터가 실수를 표현하는 방식에는 넓은 범위의 실수를 표현할 수 있지만, 오차가 존재한다.(=부동 소수점 오차) 그래서 아래와 같이 근사치를 계속 더하다 보면 오차가 생기게 되므로 주의해야 한다.  #include  // FLT_EPSILON : 부동 소수점에서 발생할 수 있는 가장 큰 오차#include  // fabsf() int main() { float num = 0.0f; for (int i = 0; i  100; i++) { num += 0.01f; } if (fabsf(num - 1.0f)  FLT_EPSILON) { // num == 1.0f : 이 정도 오차는 없는 것으로 계산한다.  } else { // num != 1.0f : 오차 발생!  } return 0; } 실수 자료형에서는 보편적으로 double을 선택한다. 즉, 특별한 선언이 없다면 소수점을 포함한 소수는 double 자료형으로 인식된다.  리터럴 상수 이름이 없고 변경이 불가능한 데이터로, 리터럴 상수도 자료형이 존재한다.\n int inum = 5; 5는 int형으로 메모리 공간에 저장하기로 되어 있다. double dnum = 7.15; 7.15는 double형으로 메모리 공간에 저장하기로 약속되어 있다. ex. float num1 = 5.123; double형 상수를 float 변수에 넣는 것이기 때문에 자동 형변환이 발생하여 데이터 손실 경고가 뜬다. 0xA : 16진수 ‘A’(=10) / 012 : 8진수 ‘12’(=10) 상수의 표현을 위한 접미사  char* str =\"Text\";처럼 문자열은 포인터 상수(즉 주소값을 반환)로 표현된다.  자동 형변환의 종류   대입연산의 전달과정에서 발생\n double num1= 245; 데이터 손실은 없으나 부동소수점 오차 발생 int num2 = 3.14; 소수점 이하 값 손실 int num3=129; char ch = num3; 상위 바이트 단순 소멸. 부호가 바뀔수 있음    정수의 승격 : 연산을 빠르게 하기 위해서 int보다 작은 크기의 정수형 데이터를 int형 데이터로 형 변환이 되어서 연산이 진행됨\n shor num1 = 15, num2 = 25; short num3 = num1 + num2; num1과 num2가 int형으로 형 변환    피연산자의 자료형 불일치\n double num = 5.15 + 19; 19가 19.0으로 형변환 int - long - long long - float - double - long double char, short의 경우 정수의 승격에 의해서 int로 변환되기 때문에 위 규칙에서 없음    특수문자 키워드 아래의 경우, 변수나 함수의 이름으로 쓸 수 없다.\n auto _Bool break case char _Complex const continue default do double else enum extern float for goto if _Imaginary return restrict short signed sizeof : 이건 함수가 아닌 연산자이다. static struct switch typedef union unsigned void volatile while  연산자  결합 방향이란, 우선순위가 동일한 두 연산자가 하나의 수식에 존재하는 경우, 어떠한 순서대로 연산하느냐를 결정해 놓은 것 결합 방향이 왼쪽인 경우는 연산자를 피연산자의 왼쪽에 놓는 경우와 조건연산, 대입연산이다. ex. sizeof str, \u0026num, …   ++num / --num : 값을 1 증가/감소 후, 속한 문장의 나머지를 진행(선 증가/감소, 후 연산) num++ / num-- : 속한 문장 전체를 먼저 진행한 후, 값을 1 증가/감소(선 연산, 후 증가/감소) 소괄호도 연산자이다. 즉, 2번 연산자의 경우 소괄호와 상관없이 다음 문장으로 넘어가야만 비로소 값의 증가 및 감소가 이뤄진다. 곱셈과 나눗셈이 비트의 이동부다 부담스러운 연산이다.  변수의 종류  지역변수 : 중괄호 내에 선언된 모든 변수(반복문, 조건문, 함수의 매개변수 등)  중괄호를 나오면 다 해제 초기화 하지 않으면 쓰레기값 같은 중괄호 내에서만 접근 가능   전역변수 : 어떤 중괄호에도 포함되지 않음  프로그램 시작과 동시에 메모리 공간(Data 영역)에 할당되어 종료시까지 존재 별도의 값 초기화하지 않으면 0으로 초기화 프로그램 전체 영역 어디서든 접근 가능   static 지역변수 : 선언된 함수에서만 접근 가능한 전역변수  선언된 함수 내에서만 접근 가능 별도의 값 초기화하지 않으면 0으로 초기화 딱 1회 초기화되고 프로그램 종료 시까지 메모리 공간(Data 영역)에 존재   static 전역변수 : 선언된 파일 내에서만 접근 가능한 전역변수(다른 외부 파일에서 접근을 허용하지 않는다.)  static void increment() {} : 함수를 static 선언을 하면 선언된 파일 내에서만 접근이 가능하다. 이로서 코드 안전성을 부여한다.   register 변수 : CPU 내 레지스터에 저장될 확률이 높은 변수  register에 할당될지는 컴파일러가 결정 지역변수에만 적용하는 것이 유의미(전역변수로 죽치고 있으면 큰 손해이므로)    Miscellaneous General   int main(int argc, char* argv[]) { return 0; }\n argc는 자기 자신을 포함한 매개변수의 개수이다. argv는 자기 자신을 포함해서 매개변수를 띄워쓰기를 기준으로 받은 문자열 배열이다. ex. ./helloProgram I Love You : argc == 4, argv == {\"./helloProgram\", \"I\", \"Love\", \"You\"} ex. ./byeProgram \"Good work.\" : argc == 2, argv == {\"./byeProgram\", \"Good work.\"} 이와 같이 큰따옴표로 묶으면 공백을 포함한 하나의 문자열 매개변수로 처리한다.    스트림 : 프로그램상에서 모니터와 키보드를 대상으로 데이터를 입출력하기 위해서 연결시켜 주는 다리\n 운영체제가 제공하는 소프트웨어적인 상태 한 방향으로 흐르는 데이터의 흐름 콘솔 입출력을 위한 입력 스트림, 출력 스트림은 프로그램이 실행되면 자동으로 생성되고, 프로그램이 종료되면 자동으로 소멸되는 스트림이다.(stdin, stdout, stderr)    프로그램 실행시 운영체제에 의해서 마련되는 메모리의 구성\n 코드 영역 : 실행할 프로그램의 코드가 저장된다. CPU는 이 영역에 저장된 명령문을 하나씩 가져가서 실행한다. 데이터 영역 : 전역변수와 static 변수 할당. 프로그램 시작과 동시에 메모리 공간에 할당되어 프로그램 종료 시까지 남아있게 된다. 스택 영역 : 지역변수, 매개변수 할당. 함수를 빠져나가면 소멸된다. 힙 영역 : 프로그래머가 원하는 시점에 malloc(), free() 등을 통해 변수를 할당하고 소멸할 수 있도록 지원되는 영역. 프로그래머가 따로 해제해주지 않으면 프로그램 종료시 운영체제에 의해 해제된다.     프로그램이 종료되면 운영체제에 의해서 할당된 메모리 공간 전체를 반환하는데 이때, 전역변수가 소멸된다.\n  C 프로그램의 생성 과정\n  컴파일러는 파일 단위로 컴파일 진행한다. 즉, 다른 파일의 정보를 참조하여 컴파일을 진행하지 않는다. 그러므로 외부에 함수, 변수 등이 정의되어 있다면 컴파일러에게 알려줘야 한다. 컴파일러에게 알려주는 것은 몇 번이고 중복되도 상관없다.\n extern int num; : num 변수가 다른 파일에 전역변수로 정의되어 있음을 알려준다. extern void increment(); , void increment(); : 함수가 다른 파일에 정의되어 있음을 알려준다. 여기서는 extern이 생략 가능    헤더파일 선언 : 헤더파일에 있는 변수, 함수, 매크로를 쓰는 소스파일에만, 구조체 정의를 쓰는 소스/헤더파일에만 추가하면 된다.\n #include  : 표준 헤더파일이 저장되어 있는 디렉터리에서 파일을 찾는다. #include \"myheader.h\" : 이 소스파일이 저장된 디렉터리에서 헤더파일을 찾는다. #include \"Release/header.h\" : 소스파일이 있는 디렉터리의 하위폴더 Release에서 헤더파일을 찾는다. #include \"../header.h\" : 소스파일이 있는 디렉터리의 상위폴더에서 헤더파일을 찾는다.    헤더파일에 포함해야 하는 것\n  외부에 선언된 변수/함수에 접근/호출하기 위한 선언들 : 소스파일이 2개 이상이면 생길 수 밖에 없음\n// arith.h #ifndef __ARITH_H__ // 구조체 정의가 포함되어 있는 \"stdiv.h\"을 포함함으로 헤더파일 중복삽입이 문제가 될 수 있기 때문에 미연에 방지하는게 좋다. #define __ARITH_H__  #include \"stdiv.h\"extern int num; Div add(int, int); #endif   매크로 : 매크로의 명령문도 파일 단위로만 유효하다.\n  구조체의 정의 : 구조체의 정의는 그 구조체를 필요로 하는 모든 파일에 존재해야 한다. 그러나 구조체를 중복 정의하면 컴파일 에러 메시지가 뜨므로, 이를 조건부 컴파일을 이용해서 해결해야 한다. 구조체의 정의는 구조체의 정의만을 포함하거나 그 구조체와 관련된 함수들만이 포함된 파일로 만드는게 좋겠다.\n// stdiv.h #ifndef __STDIV_H__ // 이와 같이 조건부 컴파일을 하면 자유롭게 #include \"stdiv.h\" 해도 괜찮다. #define __STDIV_H__  typedef struct { int quotient; int remainder; } Div; #endif     헤더파일ㅇ\n  선행처리 컴파일러가 컴파일 하기 이전에 선행처리기가 먼저 처리하여 소스파일로 반환한다. 컴파일러가 아니기 때문에 선행처리 명령문들은 #으로 시작하여 끝에 세미콜론(;)을 붙이지 않는다. 그리고 보통은 매크로의 이름을 대문자로 정의한다. 여러 줄에 걸쳐서 정의할 때는 \\문자를 활용하여 줄이 바뀌었음을 알려줘야 한다. 선행처리기가 파일 단위로 선행처리를 하기 때문에 매크로의 명령문도 파일단위로만 유효하다.\n  #define PI 3.14 : PI라는 문자를 볼 때마다 3.14로 치환한다.\n  #define PRINT_HELLO puts(\"HELLO\"); : PRINT_HELLO를 볼 때마다 해당 함수로 치환한다.\n  #define SQUARE(X) ((X) *(X)), `#define DIFF_ABS(x, y) ((x)  (y) ? (x) - (y) : (y) - (x)) : 함수형 매크로의 경우 소괄호를 남발할정도로 많이 써야 한다.\n  문자열 내에서 매크로의 매개변수를 치환하고 싶으면 매크로 연산자  #을 써야 한다.\n#define STRING_JOB(A, B) #A \"의 직업은 \" #B \"입니다. \"   필요한 형태대로 단순하게 결합하려면 매크로 연산자 ##을 써야 한다.\n#define CON(UPP, LOW) UPP ## 00 ## LOW  int num = CON(22, 77); // 220077이 대입된다.     #define ADD 처럼 매크로의 몸체를 생략해서 정의해도 된다. 이렇게 정의하면 ADD라는 문구는 다 공백으로 대체가 된다.\n  #include  : stdio.h 파일의 모든 내용을 여기에다가 그대로 복사한다.\n  #if A ... #elif B !!! #else ,,, #endif : A가 참이라면 ... 컴파일, B가 참이라면 !!! 컴파일, 둘 다 아니라면 ,,, 컴파일\n#define ADD 1  #if ADD // ADD가 참이면 아래 줄을 컴파일함 \tprintf(\"+\"); #endif   #ifdef A ... #else ,,, #endif : A가 정의(#define)되어 있다면 ... 컴파일, 아니면 ,,,컴파일\n #ifndef A ... #else ,,, #endif : 정의되어 있지 않다면     연속적인 문장  int num1 = 30, num2 = 40; 여러 변수의 선언과 동시에 초기화를 할 때 comma를 쓴다. int* ptr1 = NULL, * ptr2 = NULL; 여러 개의 포인터변수를 쓸 때는 이렇게 쓴다. num1 = num2 = 0; 여러 개의 변수에 같은 값을 대입할 때 이렇게 쓴다. printf(\"Name: \"); scanf(\"%s\", name); 뭘 입력할지 안내하고 입력을 받을 때 이와 같이 한 줄로 입력하면 좋다.  반복문  do ~ while과 while는 실제로 body가 1회 이상 실행되고, 조건문이 같고, body가 조건문에 영향을 주지 않는다면, 실행횟수는 똑같다. 즉, 반복조건의 검사위치가 달라서 do ~ while은 최소 1회 이상 실행한다는 점이 while과의 유일한 차이점 반복문의 반복횟수가 정해져 있다면, for를 쓰는것이 유리하다. break;는 가장 가까이서 감싸고 있는 반복문 하나를 빠져나오는 것이다.  조건문  switch(n) ~ case문에서 n은 정수형 변수이므로 char형도 포함된다. 두 수 중 큰 수 혹은 작은 수를 계산하는 것은 ? :을 잘 활용하자.  함수  함수의 선언에서는 int increment(int); 처럼 매개변수의 이름을 생략할 수 있다. 함수가 호출되면 해당 함수의 복사본을 만들어서 실행한다고 생각해야함 함수가 호출될 때 메모리 공간 내 stack영역에서 새로 공간이 할당되어서 해당 지역변수들이 생성된다. 인자 전달의 기본방식은 **값의 복사(call-by-value)**이다. 즉, 복사가 되는 것 뿐이기 때문에, 함수가 호출되고 나면, 전달되는 인자와 매개변수는 별개가 된다.  call-by-reference : 그냥 단순하게 주소 값을 매개변수로 전달하는 경우   매개변수로 배열을 선언할 수 없다. 매개변수가 넘겨질 때 그만큼 새로 메모리공간을 할당하는데, 배열의 사이즈가 크면 stack을 초과할 수 있기 때문이다. 매개변수로 1차원 배열을 넘길 때에는 다음과 같이 배열의 시작주소값을 넘겨야 한다.  void showArrayElem(int * param, int len); void shoWArrayElem(int param[], int len); 매개변수에서만 int param[]과 int* param은 완전히 동일한 선언이다. 주소값만을 넘겨서는 그 배열의 사이즈를 알 수 없으므로 항상 배열 사이즈와 함께 넘겨야 한다. sizeof(param)은 param이 포인터 변수이므로 단순히 포인터 변수의 크기인 8을 반환한다. 배열의 크기는 보통 sizeof(param) / sizeof(param[0])으로 넘기면 된다.   매개변수로 2차원 배열을 넘길 때에는 다음과 같이 배열 포인터와 행 사이즈를 넘겨야 한다.  void show2DArray(int (*arr)[4], int column); void show2DArray(int arr[][4], int column); 매개변수에서만 int (*arr)[4]과 int arr[][4]은 완전히 동일한 선언이다. 배열 포인터만을 넘겨서는 그 2차원배열의 행 개수를 알 수 없으므로 항상 행 사이즈와 함께 넘겨야 한다. sizeof(arr)은 arr이 포인터 변수이므로 단순히 포인터 변수의 크기인 8을 반환한다. 배열의 크기는 보통 sizeof(arr) / sizeof(arr[0])으로 넘기면 된다.(배열의 전체 크기 / 한 행의 크기)    void show2DArray(int (*arr)[4], int column) { for (int i = 0; i  column; i++) { for (int j = 0; j  4; j++) { printf(\"%d \", arr[i][j]); } puts(\"\"); } } 함수에서 지역적으로 선언된 변수의 주소값을 반환하면 안된다. 함수가 반환되면 거기에 속해 있는 모든 지역변수들이 해제되기 때문이다. 이를 해결하려면 동적할당을 통해 힙의 영역에서 변수를 선언하고 이를 반환해야 한다. 함수에서 반환할 때에도 리턴값을 복사해서 반환한다.  구조체(struct)  구조체 선언 방식  // 구조체 정의 방식 #1 struct Point { int xpos; int ypos; }; struct Point x; // 구조체 정의 방식 #2 - 1 struct point { // ... }; typedef struct point Point; // 구조체 정의 방식 #2 - 2 typedef struct point { // ... } Point; struct Point x; // 이렇게 둘 다 사용 가능 Point y; // 구조체 정의 방식 #3 typedef struct { // ... } Point; Point x; // struct 키워드로 선언 불가능 구조체 변수의 주소값은 구조체 변수의 첫 번째 멤버의 주소 값과 동일 typedef 키워드로 재정의할 경우 구조체 변수의 이름을 보통 대문자로 설정 sizeof(struct)를 계산하면 struct의 모든 멤버의 sizeof 결과를 더한것과 같다.  공용체(union) typedef struct { unsigned short upper; unsigned short lower; } DBShort; typedef union { int iBuf; char bBuf[4]; DBShort sBuf; } RDBuf;  위 사례처럼 union은 같은 메모리를 다양하게 해석하고, 접근할 수 있다.  4bytes 메모리 공간을 rdBuf.iBuf로 접근하면 하나의 int 정수로 접근 rdBuf.bBuf로 접근하면 크기가 4인 문자 배열로 접근 rdBuf.sBuf로 접근하면 상위 2bytes, 하위 2bytes로 short 2개로 접근할 수 있다.    열거형(enum) 변수에 저장이 가능한 정수 값들을 나열한것으로 정수로 인식됨\nenum syllable { Do=1, Re=3, Mi, Fa=8, So // 1, 3, 4, 8, 9 } enum { // 자료형의 이름을 생략한 형태로 정의  Do, Re, Mi, Fa, So // 0, 1, 2, 3, 4 } 문자열  ‘\\0'은 ascii값이 0으로 이를 문자의 형태로 출력할 경우, 아무런 출력이 발생하지 않는다.(공백(' ')이 출력되는 것과 다름) 문자열 != 문자배열 : 문자열을 구분할 때 마지막에 항상 \\0이 있어야 한다. 그래야만 정상적으로 문자열이 출력된다.  str[strlen(str) - 1] = 0 : str 문자열의 마지막에 null문자 대입, '\\0'과 0을 넣는 것은 같은 의미(ascii 값이 같으므로) null 문자가 없으면 단순한 문자 배열이다.   C언어에서는 개행을 \\n으로 표시하기로 약속한다. 이는 C언어에서만 해당한다.  MS-DOS(Windows) : \\r\\n Mac OS : \\r Unix 계열: \\n   문자열이 파일에 저장될 때에는 문자열의 끝을 의미하는 널 문자는 저장되지 않는다. 때문에 파일에서는 개행을 기준으로 문자열을 구분한다. 문자열을 나란히 선언하면 하나의 문자열로 간주된다. 즉 \"ABC\" \"DEF\"는 \"ABCDEF\"와 같다.  배열 1차원 배열  int arr[3] = {1 }; : 나머지 arr[1], arr[2]는 0으로 초기화 int arr[] = {4, 5, 6}; : arr의 사이즈는 3으로 자동 결정 M 사이즈인 1차원 배열 동적할당: int * ptr = (int*)malloc(sizeof(int) * M);  2차원 배열  int arr2d[2][4] = {1, 2, 3, 4, 5, 6, 7, 8}; : 1차원 배열처럼 초기화 가능 int arr2d[][4] = {{1, 2, 3}, {5, 6}}; : arr[0][3], arr[1][2], arr[1][3]은 0으로 초기화 int arr2d[][4] = {1, 2, 3, 4, 5, 6, 7, 8}; : 세로의 길이만 생략 가능 위 2차원 배열의 이름인 arr2d는 이중 포인터가 아니라 배열 포인터다!  arr2d는 \u0026arr2d[0][0]을 뜻하면서도 배열 전체를 의미하고, int (*ptr1)[4]의 타입이다. arr2d[i]는 \u0026arr2d[0][0]을 뜻하면서도 배열 i번째 행 전체를 의미하고, int* ptr2의 타입이다. sizeof(arr2d)는 2 * 4 * sizeof(int)를 반환한다. sizeof(arr2d[i])는 4 * sizeof(int)를 반환한다. 고로, arr2d != arr2d[i]   int (*ptr1)[4] = matrix;에서 배열포인터 변수 ptr1은 int형 변수를 가리키면서 포인터 연산시 sizeof(int) * 4의 크기 단위로 값이 증가 및 감소한다. 배열 포인터 != 포인터 배열  int* a[4]; : 포인터 배열 = int형 포인터 4개를 담고 있는 배열 int (*b)[4]; : 배열 포인터 = int변수를 가리키고 포인터 연산시 sizeof(int) * 4만큼 증감하는 포인터   MxN 사이즈인 2차원 배열(행 = M, 열 = N) 동적할당 및 해제 :  int** arr2d = (int**)malloc(sizeof(int*) * M); for (int i = 0; i  M; i++) { arr2d[i] = (int*)malloc(sizeof(int) * N); } // 해제 for (int i = 0; i  M; i++) { free(arr2d[i]); } free(arr2d); Pointer 포인터 변수 vs 포인터 상수 포인터 변수 메모리의 주소 값을 저장하기 위한 변수\n 64bit OS, 64bit으로 컴파일했을 때 sizeof(ptr) == 8로 계산된다. \u0026연산자는 변수만이 피연산자가 될 수 있다. 포인터의 형(type)은 메모리 공간을 참조하는 기준이 되어서 *연산할 때 메모리 공간의 접근 기준이 된다.  즉, *pnum은 pnum의 포인터 자료형에 따라서 해당하는 주소에서 몇 바이트를 읽을지, 정수/실수형으로 해석할지 판단한다.   const int* ptr;은 포인터 변수 ptr을 이용해서 ptr이 가리키는 변수에 저장된 값을 변경하는 것을 허용하지 않겠다는 뜻 int* const ptr;은 포인터 변수 ptr에 저장된 주소값을 변경하는 것을 허용하지 않겠다는 뜻  const int인지 const ptr인지로 구분하면 좋겠다.   void*는 형(type)이 존재하지 않는 포인터다.  함수포인터, 배열포인터 등등 무엇이든 그것의 주소만을 담을 수 있는 포인터 포인터 연산(값의 변경 및 참조 등)을 하려면 캐스팅한 후 진행해야 한다.    포인터 상수(상수 형태의 포인터) 메모리의 주소 값이지만 그 주소값을 변경할 수 없는 상수\n 배열의 이름은 배열의 시작 주소값을 의미하며, 그 형태는 값의 저장이 불가능한 상수이다. 배열의 이름과 포인터 변수는 변수냐 상수냐의 특성적 차이만 있을 뿐, 둘 다 포인터이기 때문에 포인터 변수로 할 수 있는 연산은 배열의 이름으로도 할 수 있고, 배열의 이름으로 할 수 있는 연산은 포인터 변수로도 할 수 있다.  즉, int* ptr; 이면 ptr[2]은 int 배열에서 3번째 원소를 가리킨다.    int arr[3] = {15, 25, 34}; int* ptr = \u0026arr[0]; // int* ptr = arr;  printf(\"%d %d\\n\", arr[0], ptr[0]); // 15 15 printf(\"%d %d\\n\", arr[1], ptr[1]); // 25 25 printf(\"%d %d\\n\", arr[2], ptr[2]); // 34 34 printf(\"%d %d\\n\", *arr, *ptr); // 15 15 문자열을 두 가지 형태로 선언할 수 있다.  char str1[] = \"My String\"; : str1은 계속 문자열이 저장된 위치를 가리켜야 한다. char * str2 = \"My String\"; : str2는 다른 문자열을 가리킬 수 있다.   함수의 이름은 함수가 저장된 메모리공간의 주소값을 의미한다.  int (*fptr) (int); 매개변수가 int 하나 있고, 반환형이 int인 함수 포인터 void (*fptr2) (char*, int); 매개변수가 char*, int이고, 반환형이 없는 함수포인터    포인터 연산  int형 포인터를 대상으로 n의 크기만큼 값을 증가 및 감소 시, n * sizeof(int) 의 크기만큼 주소 값이 증가 및 감소 double형 포인터를 대상으로 n의 크기만큼 값을 증가 및 감소 시, n * sizeof(double) 의 크기만큼 주소 값이 증가 및 감소 1차원배열 arr에서 arr[i] == *(arr + i), \u0026arr[i] == arr + i 2차원배열 arr2d에서 *(arr2d[i] + j) == (*(arr+i))[j] == *(*(arr+i)+j) == arr[i][j] sizeof(ptr)은 포인터 변수 ptr의 크기인 8을 반환하지만, sizeof(arr)와 같이 포인터 상수는 배열 arr의 크기를 반환한다. 즉, sizeof를 갖고 배열의 크기를 반환하고 싶으면 포인터 상수를 피연산자로 넣어야 한다.   포인터 배열 포인터 변수로 이루어진 배열\n char* str[3];은 문자열을 3개 저장할 수 있는 char형 포인터 배열이다.  이중 포인터(더블 포인터) 포인터를 가리키는 포인터 변수\n int* arr[3];에서 arr은 포인터 배열의 첫주소를 가리키므로 int**이다.  자주 쓰는 함수 정리  서식지정 입출력 : printf() vs fprintf() vs sprintf() vs scanf() vs fscanf() vs sscanf()    함수 콘솔 파일 문자열 호출 성공시 호출 실패시 파일의 끝에 도달시 비고     int printf(const char* formatString, ...); O X X 출력된 문자의 수 반환 EOF 반환     int fprintf(FILE* stream, const char* formatString, ...); O O X 출력된 문자의 수 반환 EOF 반환     int sprintf(char* buffer, const char* formatString, ...); X X O 끝에 \\0을 뺀 작성된 바이트 수 반환      int scanf(const char* formatString, ...); O X X 입력된 문자의 수 반환 EOF 반환 EOF 반환    int fscanf(FILE* stream, const char* formatString, ...); O O X 입력된 문자의 수 반환 EOF 반환 EOF 반환    int sscanf(const char* src, const char* formatString, ...); X X O 성공적으로 변환된 필드 수 반환 EOF 반환 EOF 반환(문자열이 끝날 시)      float, double, long double의 데이터 출력에 사용되는 서식문자는 %f, %f, %Lf이다. float, double, long double의 데이터 입력에 사용되는 서식문자는 %f, %lf, %Lf이다.  printf(), fprintf(), sprintf() 각 필드들을 입력하여 서식지정을 통해서 새롭게 만들어낸 문자열을 콘솔/파일/문자열에 출력하는 함수들이다.\n 서식문자   %8d : 필드 폭을 8칸 확보후 오른쪽 정렬 %-8d : 필드 폭을 8칸 확보후 왼쪽 정렬  printf(...)는 fprintf(stdout, ...)와 똑같다. sprintf()는 포맷의 형식으로 문자열을 버퍼(char*)에 출력한다.  이를 이용하여 숫자를 문자열로 바꿀 수 있다. ex.sprintf(str, \"%d\", 240);    scanf(), fscanf(), sscanf() 콘솔/파일/문자열로부터 문자열을 서식지정된 패턴으로 입력받아 파싱하여 각 필드에 저장하는 함수들이다.\n 공백(, \\t, \\n)을 기준으로 데이터 구분하고, 공백 문자를 입력버퍼에 남겨두고 그 앞까지 받아들인다. (%d이든, %s이든 상관없이) 그러므로 보통 공백을 포함하는 문장은 scanf()로 입력받는 것은 적절치 못하다. (fgets()로 받고 후속조치할 것) 함수 호출 시 변수의 주소값을 넘기는 call-by-reference를 하는 이유는 스트림으로부터 입력을 받아서 해당 변수의 주소값에 직접 접근해서 채워넣기 위함이다. 서식 문자 : printf()와 비슷하면서 다르므로 별도로 기억해야 한다.  %d : 10진수 정수 %o : 8진수 양의 정수 %x : 16진수 양의 정수 %f, %e, %g : float형 데이터 %lf : double형 데이터 %Lf : long double형 데이터 %s : 문자열(공백 이전까지)   scanf(...)는 fscanf(stdin, ...)와 똑같다.  char name[10]; char sex; int age; int ret = fscanf(fp, \"%s %c %d\", name \u0026sex, \u0026age); if (ret == EOF) { // 함수 오류 혹은 파일의 끝에 도달  if (feof(fp) != 0) { // 파일의 끝에 도달  } } 문자 입출력 : putchar() vs fputc() vs getchar() vs fgetc()    함수 콘솔 파일 호출 성공시 호출 실패시 파일의 끝에 도달시 비고     int putchar(int ch); O X ch 반환 EOF 반환     int fputc(int ch, FILE* stream); O O ch 반환 EOF 반환     int getchar(void); O X 버퍼로부터 문자 1개 EOF 반환 EOF 반환    int fgetc(FILE* stream); O O 버퍼로부터 문자 1개 EOF 반환 EOF 반환      getchar() 와 fgetc() 의 반환형이 char가 아닌 int인 이유는 EOF가 -1이기 때문이다. 서식지정할 필요없이 문자 하나 단순 입력/출력하는 것이라면 scanf()나 printf()보다 메모리공간을 덜 차지하고, 속도가 빠른 위 함수를 쓰자.  문자열 입출력 : puts() vs fputs() vs gets() vs fgets()    함수 콘솔 파일 호출 성공시 호출 실패시 파일의 끝에 도달시 비고     int puts(const char* str); O X 음수가 아닌 값 EOF 반환  항상 끝에 자동적으로 개행   int fputs(const char* str, FILE* stream); O O 음수가 아닌 값 EOF 반환  자동적으로 개행 안함   char* gets(char* str); O X str NULL 반환 NULL 반환 쓰지 말것(오버플로우 위험)   char* fgets(char* str, int n, FILE* stream); O O str NULL 반환 NULL 반환 \\n을 만날 때까지 또는 \\0를 포함한 n개만큼 읽되, 공백문자와 \\n을 포함해서 읽는다.     아래의 사례와 같이 문자열을 입력 받으면 문자열의 끝에 자동으로 \\0 문자가 추가된다.  char str[7]; fgets(str, sizeof(str), stdin); // \"123456789\" 입력  puts(str); // \"123456\" 출력 : 널 문자를 포함하여 7개이므로, 6개 문자를 버퍼로부터 입력받음 아래의 사례와 같이 \\n을 만날 때까지 문자열을 읽어 들이는데, \\n을 제외시키거나 버리지 않고 문자열의 일부로 받아들인다.  char str[7]; fgets(str, sizeof(str), stdin); // \"1234\" 입력 후 엔터칠 때 입력버퍼로 \"1234\\n\"이 삽입됨  puts(str); // \"1234\\n\" 출력 : 개행문자를 비롯한 공백문자도 문자열의 일부로 받아들임 str[strlen(str) - 1] = 0; // 개행문자가 포함된 경우 개행문자를 `\\0`으로 바꿈 서식지정할 필요없이 문자열을 단순 입력/출력하는 것이라면 scanf()나 printf()보다 메모리공간을 덜 차지하고, 속도가 빠른 위 함수를 쓰자.  파일관련 : fopen(), fclose(), fflush(), feof(), fseek(), ftell()    함수 호출 성공시 호출 실패시 파일의 끝에 도달시 비고     FILE* fopen(const char* filename, const char* mode); FILE* 반환 NULL 반환     int flose(FILE* stream); 0 반환 EOF반환     int fflush(FILE* stream); 0 반환 EOF 반환     int feof(FILE* stream);   0이 아닌 값 반환 파일의 끝이 아닐 경우 0 반환   int fseek(FILE* stream, long offset, int wherefrom); 0 반환 0이 아닌값 반환     long ftell(FILE* stream); 파일 위치 지시자의 offset 반환       fopen()  읽기만 가능할 때 파일이 없으면 에러 발생하여 NULL 반환한다. 쓰기 - 읽기, 읽기 - 쓰기로 작업을 변경할 때 메모리 버퍼를 비워줘야 하고 잘못 사용될 수 있기 때문에 웬만하면 r, w, a 중에서 선택하는 것이 좋다. 텍스트 모드(t)와 바이너리 모드(b)  기본값은 텍스트 모드이다. w+t와 wt+는 같은 의미이다.   텍스트 모드로 개방하면 아래의 변환이 자동적으로 이루어진다.(ex. Windows)  C 프로그램에서 \\n을 파일에 저장하면 \\r\\n으로 변환되어 저장됨 파일에 저장된 \\r\\n을 C프로그램 상에서 읽으면 \\n으로 변환되어 읽혀짐 즉, 텍스트모드로 개방하면 운영체제 별로 개행 문자가 다른 것을 신경 쓸 필요가 없어진다.       모드 스트림 성격 파일이 없으면?     r 읽기 가능 에러   w 쓰기 가능 생성   a 파일의 끝에 덧붙여 쓰기 가능 생성   r+ 읽기/쓰기 가능 에러   w+ 읽기/쓰기 가능 생성   a+ 읽기/덧붙여 쓰기 가능 생성    fclose()  운영체제가 할당한 자원의 반환 출력 버퍼에 버퍼링 되었던 데이터의 출력 및 출력버퍼를 비움  즉, fclose()를 호출할 때 그제서야 파일 저장을 한다는 뜻이다.    fflush()  출력버퍼의 비워짐 = 출력버퍼에 저장된 데이터가 버퍼를 떠나서 목적지로 이동된다. 입력버퍼의 비워짐 = 입력버퍼의 데이터 소멸  fflush(stdin);은 컴파일러에 따라 다른 결과를 보이므로 하면 안된다. while (getchar() != '\\n');로 \\n를 만날 때까지 \\n을 포함해서 문자를 읽어들여 입력버퍼를 비울 수 있다.    if (fflush(stdout) == EOF) { // 실패  exit(-1); } else { //성공 } feof() 파일의 마지막까지 저장된 데이터를 모두 읽어들일 때 반드시 파일의 끝을 확인해야 한다.\n다음의 경우일때 feof()를 통해서 파일의 끝인지 확인해야 한다.\n getchar(), fgetc()의 경우에는 파일의 끝에 도달했거나 오류났을 경우에 (문자 하나 이므로) EOF를 반환한다. gets(), fgets()의 경우에는 파일의 끝에 도달했거나 오류났을 경우에 (문자열 이므로) NULL을 반환한다. fread()의 경우에는 파일의 끝에 도달했거나 오류났을 경우에 매개변수 count보다 작은 값을 반환한다.  if (feof(fp) != 0) { // 파일의 끝에 도달했다 } else { // 파일의 끝이 아니다 } fseek(), ftell()  파일의 끝은 파일의 마지막 데이터가 아니라 파일의 끝을 표시하기 위해서 삽입이 되는 EOF를 의미한다. fseek()의 매개변수 wherefrom에 전달되는 상수  SEEK_SET : 파일 맨 앞(첫 번째 바이트)에서부터 이동을 시작 SEEK_CUR : 현재 위치에서부터 이동을 시작 SEEK_END : 파일 맨 끝(EOF)에서부터 이동을 시작   fseek()의 offset이 음수인 경우에 파일 앞쪽으로 이동한다. fgetc(), fgets() 등을 통해서 파일로부터 입력을 진행하면 그만큼 파일 위치 지시자는 이동한다. ftell()을 이용해서 파일 위치 지시자를 다시 이전 위치로 되돌릴 수 있다.  putchar(fgetc(fp)); fpos = ftell(fp); // 현재 파일 위치(offset) 저장 fseek(fp, -1, SEEK_END); // 파일 끝에서 첫번째 바이트를 가리킨다.(즉, 파일의 마지막 데이터) putchar(fgetc(fp)); fseek(fp, fpos, SEEK_SET); // 이전 파일 위치로 복귀 fread() vs fwrite()    함수 호출 성공시 호출 실패시 파일의 끝에 도달시 비고     size_t fread(void* buffer, size_t size, size_t count, FILE* stream); count 반환 count보다 작은 값 반환 count보다 작은 값 반환    size_t fwrite(const void* buffer, size_t size, size_t count, FILE* stream); count 반환 count보다 작은 값 반환       fread()은 읽어 들인 바이트 수가 아니라 데이터 개수를 반환한다. 매개변수 size는 한 데이터의 크기를 뜻하고, 매개변수 count는 그 데이터의 개수를 뜻한다. 즉, 총 size * count bytes 크기 만큼 바이너리 파일로 입출력한다. 구조체는 바이너리 데이터로 인식하여 fread()와 fwrite() 함수로 파일 입출력을 처리한다.      함수 return 비고     size_t strlen(cosnt char* s); 전달된 문자열의 길이를 반환 널 문자(\\0)는 길이에 포함하지 않음   char* strcpy(char* dest, const char* src); dest 값 반환    char* strncpy(char* dest, const char* src, size_t n); dest 값 반환 src의 문자열을 dest에 복사하되, src의 길이가 매우 길다면 n만큼의 길이만큼 복사\n\\0문자를 고려하지 않으므로 마지막에 널 문자를 따로 넣어줘야 한다.(아래 1번 참조)   char* strcat(char* dest, const char* stc); dest 값 반환    char* strncat(char* dest, const char* src, size_t n); dest 값 반환 src의 문자열 중 최대 n개만큼 덧붙이고, \\0를 반드시 자동으로 넣어준다. 그러므로 dest 는 n+1개 만큼의 여유공간이 있어야 함   int strcmp(const char* s1, const char* s2); 두 문자열의 내용이 같으면 0, 아니면 0이 아닌 값 반환 \\0을 포함해서 ascii값을 비교한다. s1이 s2보다 사전편찬 순서상 뒤에 위치하면 양수 반환, 그 반대면 음수 반환 ex) s1 = “Zebra”, s2= “Apple” - 양수 반환   int strncmp(const char* s1, const char* s2, size_t n); 두 문자열의 내용이 같으면 0, 아니면 0이 아닌 값 반환 \\0을 포함해서 ascii값을 비교한다. s1이 s2보다 사전편찬 순서상 뒤에 위치하면 양수 반환, 그 반대면 음수 반환 ex) s1 = “Zebra”, s2 = “Apple” - 양수 반환     strncpy()는 널 문자 삽입을 따로 고려해줘야 한다.  strncpy(dest, src, sizeof(dest) - 1); // NULL문자를 뺀 sizeof(dest)-1 만큼 복사(최대한 복사해서 넣어도 널문자를 위한 공간 하나 빼고 복사해야 하므로) dest[strlen(dest) - 1] = 0; // 문자열의 마지막 끝부분 다음에 널 문자 삽입 strcat(), strncat()에서는 src의 첫부분을 dest의 널문자부터 덮어씌운다.  char* src = \"World\"; char dest[8] = \"Hello\"; // 널문자가 차지한 공간 포함해서 3개 만큼 빈 공간이 있다.  strncat(dest, src, 2); // 널 문자를 반드시 마지막에 넣어줘야 하므로 최대 2개만큼 복사해서 붙여넣을 수 있다. puts(dest); // \"HelloWo\"  문자열을 숫자로 변환 : atoi(), atol(), atof()  char* - int : int atoi(const char* str); char* - long : long atol(const char* str); char* - double : double atof(const char* str);  동적할당 및 해제 : malloc(), calloc(), realloc(), free() void* malloc(size_t size);\nvoid* calloc(size_t elt_count, size_t elt_size); : 블록크기(elt_size) * 블록개수(elt_count)만큼 할당하고 모든 비트를 0으로 초기화한다.\nvoid* realloc(void* ptr, size_t size); : ptr이 카리키는 메모리의 크기를 size만큼 조절한다.\nvoid free(void* ptr);\nvoid free(void* ptr);\n  힙에 할당된 메모리공간은 포인터(즉, 주소값)를 이용해 접근할 수 밖에 없다.\n  메모리 공간의 할당이 실패할 경우 NULL을 반환하므로 반드시 이를 체크해줘야 한다.\nint* ptr = (int*)malloc(sizeof(int) * 3); if (ptr == NULL) { // 메모리 할당 실패에 따른 오류 처리 }   void*로 반환되는 것은 주소값만을 갖고 있다는 의미이므로 이를 이용해서 참조하기 위해서는 포인터의 형변환을 해줘야 한다.\n  realloc()은 확장할 영역이 넉넉치 못할 경우, 새로운 장소에 별도로 할당하여 이전 배열에 저장된 값을 복사해서 옮겨놓고 그 메모리 주소값을 반환하기도 한다. 이 경우에는 알아서 데이터를 옮겨주고, 기존 장소는 메모리 해제해주니까 신경쓸 필요가 없다.\n  ",
+  "wordCount" : "11569",
+  "inLanguage": "en",
+  "datePublished": "2021-11-02T13:11:28+09:00",
+  "dateModified": "2021-11-03T16:46:40.173788856+09:00",
+  "author":{
+    "@type": "Person",
+    "name": "Jed Choi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://jeddchoi.github.io/posts/c-reference/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jed Choi's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jeddchoi.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://jeddchoi.github.io" accesskey="h" title="Jed Choi&#39;s Blog (Alt + H)">Jed Choi&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://jeddchoi.github.io/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jeddchoi.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jeddchoi.github.io/series" title="Series">
+                    <span>Series</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jeddchoi.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jeddchoi.github.io/categories/about-me" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://jeddchoi.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://jeddchoi.github.io">Home</a>&nbsp;»&nbsp;<a href="https://jeddchoi.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      C Reference
+    </h1>
+    <div class="post-description">
+      C 언어 참고문서
+    </div>
+    <div class="post-meta">November 2, 2021&nbsp;·&nbsp;24 min&nbsp;·&nbsp;Jed Choi
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul><ul>
+                <li>
+                    <a href="#%ec%9e%90%eb%a3%8c%ed%98%95" aria-label="자료형">자료형</a><ul>
+                        
+                <li>
+                    <a href="#%ec%a0%95%ec%88%98%ed%98%95" aria-label="정수형">정수형</a></li>
+                <li>
+                    <a href="#%ec%8b%a4%ec%88%98%ed%98%95" aria-label="실수형">실수형</a></li>
+                <li>
+                    <a href="#%eb%a6%ac%ed%84%b0%eb%9f%b4-%ec%83%81%ec%88%98" aria-label="리터럴 상수">리터럴 상수</a><ul>
+                        
+                <li>
+                    <a href="#%ec%9e%90%eb%8f%99-%ed%98%95%eb%b3%80%ed%99%98%ec%9d%98-%ec%a2%85%eb%a5%98" aria-label="자동 형변환의 종류">자동 형변환의 종류</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%ed%8a%b9%ec%88%98%eb%ac%b8%ec%9e%90" aria-label="특수문자">특수문자</a></li>
+                <li>
+                    <a href="#%ed%82%a4%ec%9b%8c%eb%93%9c" aria-label="키워드">키워드</a></li>
+                <li>
+                    <a href="#%ec%97%b0%ec%82%b0%ec%9e%90" aria-label="연산자">연산자</a></li>
+                <li>
+                    <a href="#%eb%b3%80%ec%88%98%ec%9d%98-%ec%a2%85%eb%a5%98" aria-label="변수의 종류">변수의 종류</a></li></ul>
+                </li>
+                <li>
+                    <a href="#miscellaneous" aria-label="Miscellaneous">Miscellaneous</a><ul>
+                        
+                <li>
+                    <a href="#general" aria-label="General">General</a></li>
+                <li>
+                    <a href="#%ec%84%a0%ed%96%89%ec%b2%98%eb%a6%ac" aria-label="선행처리">선행처리</a></li>
+                <li>
+                    <a href="#%ec%97%b0%ec%86%8d%ec%a0%81%ec%9d%b8-%eb%ac%b8%ec%9e%a5" aria-label="연속적인 문장">연속적인 문장</a></li>
+                <li>
+                    <a href="#%eb%b0%98%eb%b3%b5%eb%ac%b8" aria-label="반복문">반복문</a></li>
+                <li>
+                    <a href="#%ec%a1%b0%ea%b1%b4%eb%ac%b8" aria-label="조건문">조건문</a></li>
+                <li>
+                    <a href="#%ed%95%a8%ec%88%98" aria-label="함수">함수</a></li>
+                <li>
+                    <a href="#%ea%b5%ac%ec%a1%b0%ec%b2%b4struct" aria-label="구조체(struct)">구조체(struct)</a></li>
+                <li>
+                    <a href="#%ea%b3%b5%ec%9a%a9%ec%b2%b4union" aria-label="공용체(union)">공용체(union)</a></li>
+                <li>
+                    <a href="#%ec%97%b4%ea%b1%b0%ed%98%95enum" aria-label="열거형(enum)">열거형(enum)</a></li>
+                <li>
+                    <a href="#%eb%ac%b8%ec%9e%90%ec%97%b4" aria-label="문자열">문자열</a></li>
+                <li>
+                    <a href="#%eb%b0%b0%ec%97%b4" aria-label="배열">배열</a><ul>
+                        
+                <li>
+                    <a href="#1%ec%b0%a8%ec%9b%90-%eb%b0%b0%ec%97%b4" aria-label="1차원 배열">1차원 배열</a></li>
+                <li>
+                    <a href="#2%ec%b0%a8%ec%9b%90-%eb%b0%b0%ec%97%b4" aria-label="2차원 배열">2차원 배열</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#pointer" aria-label="Pointer">Pointer</a><ul>
+                        
+                <li>
+                    <a href="#%ed%8f%ac%ec%9d%b8%ed%84%b0-%eb%b3%80%ec%88%98-vs-%ed%8f%ac%ec%9d%b8%ed%84%b0-%ec%83%81%ec%88%98" aria-label="포인터 변수 vs 포인터 상수">포인터 변수 vs 포인터 상수</a><ul>
+                        
+                <li>
+                    <a href="#%ed%8f%ac%ec%9d%b8%ed%84%b0-%eb%b3%80%ec%88%98" aria-label="포인터 변수">포인터 변수</a></li>
+                <li>
+                    <a href="#%ed%8f%ac%ec%9d%b8%ed%84%b0-%ec%83%81%ec%88%98%ec%83%81%ec%88%98-%ed%98%95%ed%83%9c%ec%9d%98-%ed%8f%ac%ec%9d%b8%ed%84%b0" aria-label="포인터 상수(상수 형태의 포인터)">포인터 상수(상수 형태의 포인터)</a></li>
+                <li>
+                    <a href="#%ed%8f%ac%ec%9d%b8%ed%84%b0-%ec%97%b0%ec%82%b0" aria-label="포인터 연산">포인터 연산</a></li>
+                <li>
+                    <a href="#%ed%8f%ac%ec%9d%b8%ed%84%b0-%eb%b0%b0%ec%97%b4" aria-label="포인터 배열">포인터 배열</a></li>
+                <li>
+                    <a href="#%ec%9d%b4%ec%a4%91-%ed%8f%ac%ec%9d%b8%ed%84%b0%eb%8d%94%eb%b8%94-%ed%8f%ac%ec%9d%b8%ed%84%b0" aria-label="이중 포인터(더블 포인터)">이중 포인터(더블 포인터)</a></li></ul>
+                </li></ul>
+                </li></ul>
+                    
+                <li>
+                    <a href="#%ec%9e%90%ec%a3%bc-%ec%93%b0%eb%8a%94-%ed%95%a8%ec%88%98-%ec%a0%95%eb%a6%ac" aria-label="자주 쓰는 함수 정리">자주 쓰는 함수 정리</a><ul>
+                        
+                <li>
+                    <a href="#stdioh" aria-label="&amp;lt;stdio.h&amp;gt;">&lt;stdio.h&gt;</a><ul>
+                        
+                <li>
+                    <a href="#%ec%84%9c%ec%8b%9d%ec%a7%80%ec%a0%95-%ec%9e%85%ec%b6%9c%eb%a0%a5--printf-vs-fprintf-vs-sprintf-vs-scanf-vs-fscanf-vs-sscanf" aria-label="서식지정 입출력 : printf() vs fprintf() vs sprintf() vs scanf() vs fscanf() vs sscanf()">서식지정 입출력 : printf() vs fprintf() vs sprintf() vs scanf() vs fscanf() vs sscanf()</a><ul>
+                        
+                <li>
+                    <a href="#printf-fprintf-sprintf" aria-label="printf(), fprintf(), sprintf()">printf(), fprintf(), sprintf()</a></li>
+                <li>
+                    <a href="#scanf-fscanf-sscanf" aria-label="scanf(), fscanf(), sscanf()">scanf(), fscanf(), sscanf()</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%eb%ac%b8%ec%9e%90-%ec%9e%85%ec%b6%9c%eb%a0%a5--putchar-vs-fputc-vs-getchar-vs-fgetc" aria-label="문자 입출력 : putchar() vs fputc() vs getchar() vs fgetc()">문자 입출력 : putchar() vs fputc() vs getchar() vs fgetc()</a></li>
+                <li>
+                    <a href="#%eb%ac%b8%ec%9e%90%ec%97%b4-%ec%9e%85%ec%b6%9c%eb%a0%a5--puts-vs-fputs-vs-gets-vs-fgets" aria-label="문자열 입출력 : puts() vs fputs() vs gets() vs fgets()">문자열 입출력 : puts() vs fputs() vs gets() vs fgets()</a></li>
+                <li>
+                    <a href="#%ed%8c%8c%ec%9d%bc%ea%b4%80%eb%a0%a8--fopen-fclose-fflush-feof-fseek-ftell" aria-label="파일관련 : fopen(), fclose(), fflush(), feof(), fseek(), ftell()">파일관련 : fopen(), fclose(), fflush(), feof(), fseek(), ftell()</a><ul>
+                        
+                <li>
+                    <a href="#fopen" aria-label="fopen()">fopen()</a></li>
+                <li>
+                    <a href="#fclose" aria-label="fclose()">fclose()</a></li>
+                <li>
+                    <a href="#fflush" aria-label="fflush()">fflush()</a></li>
+                <li>
+                    <a href="#feof" aria-label="feof()">feof()</a></li>
+                <li>
+                    <a href="#fseek-ftell" aria-label="fseek(), ftell()">fseek(), ftell()</a></li></ul>
+                </li>
+                <li>
+                    <a href="#fread-vs-fwrite" aria-label="fread() vs fwrite()">fread() vs fwrite()</a></li></ul>
+                </li>
+                <li>
+                    <a href="#stringh" aria-label="&amp;lt;string.h&amp;gt;">&lt;string.h&gt;</a></li>
+                <li>
+                    <a href="#stdlibh" aria-label="&amp;lt;stdlib.h&amp;gt;">&lt;stdlib.h&gt;</a><ul>
+                        
+                <li>
+                    <a href="#%eb%ac%b8%ec%9e%90%ec%97%b4%ec%9d%84-%ec%88%ab%ec%9e%90%eb%a1%9c-%eb%b3%80%ed%99%98--atoi-atol-atof" aria-label="문자열을 숫자로 변환 : atoi(), atol(), atof()">문자열을 숫자로 변환 : atoi(), atol(), atof()</a></li>
+                <li>
+                    <a href="#%eb%8f%99%ec%a0%81%ed%95%a0%eb%8b%b9-%eb%b0%8f-%ed%95%b4%ec%a0%9c--malloc-calloc-realloc-free" aria-label="동적할당 및 해제 : malloc(), calloc(), realloc(), free()">동적할당 및 해제 : malloc(), calloc(), realloc(), free()</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="자료형">자료형<a hidden class="anchor" aria-hidden="true" href="#자료형">#</a></h2>
+<p>자료형은 데이터를 표현하는 기준(데이터를 표현하는 방법)이다. <strong>때문에 변수도 상수도 자료형에 근거한다.</strong></p>
+<ul>
+<li>
+<p>변수는 값이 메모리 공간에 저장 및 참조되는 방식에 따라서 정수형과 실수형으로 나뉜다.</p>
+</li>
+<li>
+<p>C표준에서는 자료형 별 크기를 정확히 제한하고 있지 않다. 즉, 컴파일러마다 차이가 있으니까 조심해야 한다.
+<img loading="lazy" src="https://t1.daumcdn.net/cfile/tistory/2636724C5783428411" alt="기본 자료형 종류와 표현범위"  />
+</p>
+</li>
+<li>
+<p>컴퓨터는 2진수를 기반으로 데이터를 표현하고 연산도 진행한다.</p>
+</li>
+</ul>
+<h3 id="정수형">정수형<a hidden class="anchor" aria-hidden="true" href="#정수형">#</a></h3>
+<ol>
+<li>가장 왼쪽의 비트(MSB)는 부호비트로 사용</li>
+<li>음의 정수를 표현할 때에는 2의 보수를 취한다.
+<ol>
+<li>1의 보수를 취한다.(0과 1 반전)</li>
+<li>1을 더한다.</li>
+</ol>
+</li>
+<li>+n에다가 2의 보수를 취하면 -n이 되고, -n에 다가 2의 보수를 취하면 +n이 된다. 즉, 양수일때만 2의 보수를 취하는게 아님</li>
+<li>일반적으로 CPU가 처리하기에 가장 적합한 크기의 정수 자료형을 <code>int</code>로 정의한다. 따라서 <code>int</code>형 연산의 속도가 다른 자료형의 연산속도에 비해서 동일하거나 더 빠르다.</li>
+<li>데이터의 양이 많아서 연산속도보다 데이터의 크기를 줄이는 것이 더 중요한 경우 <code>short</code>와 같은 자료형을 활용한다.</li>
+<li>정수 자료형에만 <code>unsigned</code>를 붙일 수 있다.</li>
+<li>보통은 <code>signed</code>가 붙으나 안 붙으나 같은 의미이지만 컴파일러에 따라 <code>signed char</code> != <code>char</code>일 수 있다.</li>
+<li><code>char</code>은 정수형이다. 즉, 문자도 결국 정수를 저장한 것이다. ex. <code>char ch = 'A';</code>은 컴파일러에 의해 <code>char ch = 65;</code>로 바뀐다.</li>
+</ol>
+<h3 id="실수형">실수형<a hidden class="anchor" aria-hidden="true" href="#실수형">#</a></h3>
+<p><img loading="lazy" src="https://t1.daumcdn.net/cfile/tistory/133D23574D9170A53B" alt=""  />
+</p>
+<ol>
+<li>컴퓨터가 실수를 표현하는 방식에는 넓은 범위의 실수를 표현할 수 있지만, 오차가 존재한다.(=부동 소수점 오차) 그래서 아래와 같이 근사치를 계속 더하다 보면 오차가 생기게 되므로 주의해야 한다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;float.h&gt; // FLT_EPSILON : 부동 소수점에서 발생할 수 있는 가장 큰 오차</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt; // fabsf()</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">float</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0f</span>;
+
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>) {
+        num <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.01f</span>;
+    }
+
+    <span style="color:#66d9ef">if</span> (fabsf(num <span style="color:#f92672">-</span> <span style="color:#ae81ff">1.0f</span>) <span style="color:#f92672">&lt;=</span> FLT_EPSILON) { 
+        <span style="color:#75715e">// num == 1.0f : 이 정도 오차는 없는 것으로 계산한다. 
+</span><span style="color:#75715e"></span>    } 
+    <span style="color:#66d9ef">else</span> { 
+        <span style="color:#75715e">// num != 1.0f : 오차 발생!
+</span><span style="color:#75715e"></span>    } 
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><ol start="2">
+<li>실수 자료형에서는 보편적으로 <code>double</code>을 선택한다. 즉, 특별한 선언이 없다면 소수점을 포함한 소수는 <code>double</code> 자료형으로 인식된다.</li>
+</ol>
+<h3 id="리터럴-상수">리터럴 상수<a hidden class="anchor" aria-hidden="true" href="#리터럴-상수">#</a></h3>
+<p>이름이 없고 변경이 불가능한 데이터로, 리터럴 상수도 자료형이 존재한다.</p>
+<ol>
+<li><code>int inum = 5;</code> <code>5</code>는 <code>int</code>형으로 메모리 공간에 저장하기로 되어 있다.</li>
+<li><code>double dnum = 7.15;</code> <code>7.15</code>는 <code>double</code>형으로 메모리 공간에 저장하기로 약속되어 있다. <br>
+ex. <code>float num1 = 5.123;</code> <code>double</code>형 상수를 <code>float</code> 변수에 넣는 것이기 때문에 자동 형변환이 발생하여 데이터 손실 경고가 뜬다.</li>
+<li><code>0xA</code> : 16진수 &lsquo;A&rsquo;(=10) / <code>012</code> : 8진수 &lsquo;12&rsquo;(=10)</li>
+<li>상수의 표현을 위한 접미사
+<img loading="lazy" src="https://t1.daumcdn.net/cfile/tistory/2563EA4B531FF23903" alt="상수의 표현을 위한 접미사"  />
+</li>
+<li><code>char* str =&quot;Text&quot;;</code>처럼 문자열은 포인터 상수(즉 주소값을 반환)로 표현된다.</li>
+</ol>
+<h4 id="자동-형변환의-종류">자동 형변환의 종류<a hidden class="anchor" aria-hidden="true" href="#자동-형변환의-종류">#</a></h4>
+<ol>
+<li>
+<p>대입연산의 전달과정에서 발생</p>
+<ol>
+<li><code>double num1= 245;</code> 데이터 손실은 없으나 부동소수점 오차 발생</li>
+<li><code>int num2 = 3.14;</code> 소수점 이하 값 손실</li>
+<li><code>int num3=129; char ch = num3;</code> 상위 바이트 단순 소멸. 부호가 바뀔수 있음</li>
+</ol>
+</li>
+<li>
+<p>정수의 승격 : 연산을 빠르게 하기 위해서 <code>int</code>보다 작은 크기의 정수형 데이터를 <code>int</code>형 데이터로 형 변환이 되어서 연산이 진행됨</p>
+<ol>
+<li><code>shor num1 = 15, num2 = 25; short num3 = num1 + num2;</code> num1과 num2가 int형으로 형 변환</li>
+</ol>
+</li>
+<li>
+<p>피연산자의 자료형 불일치</p>
+<ol>
+<li><code>double num = 5.15 + 19;</code> 19가 19.0으로 형변환</li>
+<li><code>int</code> -&gt; <code>long</code> -&gt; <code>long long</code> -&gt; <code>float</code> -&gt; <code>double</code> -&gt; <code>long double</code></li>
+<li><code>char</code>, <code>short</code>의 경우 정수의 승격에 의해서 <code>int</code>로 변환되기 때문에 위 규칙에서 없음</li>
+</ol>
+</li>
+</ol>
+<h3 id="특수문자">특수문자<a hidden class="anchor" aria-hidden="true" href="#특수문자">#</a></h3>
+<p><img loading="lazy" src="https://mblogthumb-phinf.pstatic.net/20160904_32/angelcorean_1472965949572aiQX2_PNG/escape_s.png?type=w800" alt="특수문자"  />
+</p>
+<h3 id="키워드">키워드<a hidden class="anchor" aria-hidden="true" href="#키워드">#</a></h3>
+<p>아래의 경우, 변수나 함수의 이름으로 쓸 수 없다.</p>
+<ol>
+<li><code>auto</code></li>
+<li><code>_Bool</code></li>
+<li><code>break</code></li>
+<li><code>case</code></li>
+<li><code>char</code></li>
+<li><code>_Complex</code></li>
+<li><code>const</code></li>
+<li><code>continue</code></li>
+<li><code>default</code></li>
+<li><code>do</code></li>
+<li><code>double</code></li>
+<li><code>else</code></li>
+<li><code>enum</code></li>
+<li><code>extern</code></li>
+<li><code>float</code></li>
+<li><code>for</code></li>
+<li><code>goto</code></li>
+<li><code>if</code></li>
+<li><code>_Imaginary</code></li>
+<li><code>return</code></li>
+<li><code>restrict</code></li>
+<li><code>short</code></li>
+<li><code>signed</code></li>
+<li><code>sizeof</code> : 이건 함수가 아닌 연산자이다.</li>
+<li><code>static</code></li>
+<li><code>struct</code></li>
+<li><code>switch</code></li>
+<li><code>typedef</code></li>
+<li><code>union</code></li>
+<li><code>unsigned</code></li>
+<li><code>void</code></li>
+<li><code>volatile</code></li>
+<li><code>while</code></li>
+</ol>
+<h3 id="연산자">연산자<a hidden class="anchor" aria-hidden="true" href="#연산자">#</a></h3>
+<p><img loading="lazy" src="https://mblogthumb-phinf.pstatic.net/20121022_270/wnsgh224_1350911739500v887G_PNG/2.png?type=w420" alt="연산자 우선순위 및 결합방향"  />
+</p>
+<ul>
+<li>결합 방향이란, 우선순위가 동일한 두 연산자가 하나의 수식에 존재하는 경우, 어떠한 순서대로 연산하느냐를 결정해 놓은 것</li>
+<li>결합 방향이 왼쪽인 경우는 연산자를 피연산자의 왼쪽에 놓는 경우와 조건연산, 대입연산이다. ex. <code>sizeof str</code>, <code>&amp;num</code>, &hellip;</li>
+</ul>
+<ol>
+<li><code>++num</code> / <code>--num</code> : 값을 1 증가/감소 후, 속한 문장의 나머지를 진행(선 증가/감소, 후 연산)</li>
+<li><code>num++</code> / <code>num--</code> : 속한 문장 전체를 먼저 진행한 후, 값을 1 증가/감소(선 연산, 후 증가/감소)</li>
+<li>소괄호도 연산자이다. 즉, 2번 연산자의 경우 소괄호와 상관없이 다음 문장으로 넘어가야만 비로소 값의 증가 및 감소가 이뤄진다.</li>
+<li>곱셈과 나눗셈이 비트의 이동부다 부담스러운 연산이다.</li>
+</ol>
+<h3 id="변수의-종류">변수의 종류<a hidden class="anchor" aria-hidden="true" href="#변수의-종류">#</a></h3>
+<ol>
+<li>지역변수 : 중괄호 내에 선언된 모든 변수(반복문, 조건문, 함수의 매개변수 등)
+<ul>
+<li>중괄호를 나오면 다 해제</li>
+<li>초기화 하지 않으면 쓰레기값</li>
+<li>같은 중괄호 내에서만 접근 가능</li>
+</ul>
+</li>
+<li>전역변수 : 어떤 중괄호에도 포함되지 않음
+<ul>
+<li>프로그램 시작과 동시에 메모리 공간(Data 영역)에 할당되어 종료시까지 존재</li>
+<li>별도의 값 초기화하지 않으면 0으로 초기화</li>
+<li>프로그램 전체 영역 어디서든 접근 가능</li>
+</ul>
+</li>
+<li>static 지역변수 : 선언된 함수에서만 접근 가능한 전역변수
+<ul>
+<li>선언된 함수 내에서만 접근 가능</li>
+<li>별도의 값 초기화하지 않으면 0으로 초기화</li>
+<li>딱 1회 초기화되고 프로그램 종료 시까지 메모리 공간(Data 영역)에 존재</li>
+</ul>
+</li>
+<li>static 전역변수 : 선언된 파일 내에서만 접근 가능한 전역변수(다른 외부 파일에서 접근을 허용하지 않는다.)
+<ul>
+<li><code>static void increment() {}</code> : 함수를 <code>static</code> 선언을 하면 선언된 파일 내에서만 접근이 가능하다. 이로서 코드 안전성을 부여한다.</li>
+</ul>
+</li>
+<li>register 변수 : CPU 내 레지스터에 저장될 확률이 높은 변수
+<ul>
+<li>register에 할당될지는 컴파일러가 결정</li>
+<li>지역변수에만 적용하는 것이 유의미(전역변수로 죽치고 있으면 큰 손해이므로)</li>
+</ul>
+</li>
+</ol>
+<h2 id="miscellaneous">Miscellaneous<a hidden class="anchor" aria-hidden="true" href="#miscellaneous">#</a></h2>
+<h3 id="general">General<a hidden class="anchor" aria-hidden="true" href="#general">#</a></h3>
+<ol>
+<li>
+<p><code>int main(int argc, char* argv[]) { return 0; }</code></p>
+<ol>
+<li><code>argc</code>는 자기 자신을 포함한 매개변수의 개수이다.</li>
+<li><code>argv</code>는 자기 자신을 포함해서 매개변수를 띄워쓰기를 기준으로 받은 문자열 배열이다.</li>
+<li>ex. <code>./helloProgram I Love You</code> : <code>argc</code> == 4, <code>argv</code> == <code>{&quot;./helloProgram&quot;, &quot;I&quot;, &quot;Love&quot;, &quot;You&quot;}</code></li>
+<li>ex. <code>./byeProgram &quot;Good work.&quot;</code> : <code>argc</code> == 2, <code>argv</code> == <code>{&quot;./byeProgram&quot;, &quot;Good work.&quot;}</code> 이와 같이 큰따옴표로 묶으면 공백을 포함한 하나의 문자열 매개변수로 처리한다.</li>
+</ol>
+</li>
+<li>
+<p>스트림 : 프로그램상에서 모니터와 키보드를 대상으로 데이터를 입출력하기 위해서 연결시켜 주는 다리</p>
+<ol>
+<li>운영체제가 제공하는 소프트웨어적인 상태</li>
+<li>한 방향으로 흐르는 데이터의 흐름</li>
+<li>콘솔 입출력을 위한 입력 스트림, 출력 스트림은 프로그램이 실행되면 자동으로 생성되고, 프로그램이 종료되면 자동으로 소멸되는 스트림이다.(<code>stdin</code>, <code>stdout</code>, <code>stderr</code>)</li>
+</ol>
+</li>
+<li>
+<p>프로그램 실행시 운영체제에 의해서 마련되는 메모리의 구성</p>
+<ol>
+<li>코드 영역 : 실행할 프로그램의 코드가 저장된다. CPU는 이 영역에 저장된 명령문을 하나씩 가져가서 실행한다.</li>
+<li>데이터 영역 : 전역변수와 static 변수 할당. 프로그램 시작과 동시에 메모리 공간에 할당되어 프로그램 종료 시까지 남아있게 된다.</li>
+<li>스택 영역 : 지역변수, 매개변수 할당. 함수를 빠져나가면 소멸된다.</li>
+<li>힙 영역 : 프로그래머가 원하는 시점에  <code>malloc()</code>, <code>free()</code> 등을 통해 변수를 할당하고 소멸할 수 있도록 지원되는 영역. 프로그래머가 따로 해제해주지 않으면 프로그램 종료시 운영체제에 의해 해제된다.</li>
+</ol>
+</li>
+</ol>
+<p><img loading="lazy" src="http://www.tcpschool.com/lectures/img_c_memory_structure.png" alt=""  />
+</p>
+<ol start="4">
+<li>
+<p>프로그램이 종료되면 운영체제에 의해서 할당된 메모리 공간 전체를 반환하는데 이때, 전역변수가 소멸된다.</p>
+</li>
+<li>
+<p>C 프로그램의 생성 과정</p>
+<p><img loading="lazy" src="https://t3.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2Kn8/image/pSiZZ92ZlW_fGAyyCc6VJaaaxhk.PNG" alt=""  />
+</p>
+</li>
+<li>
+<p>컴파일러는 파일 단위로 컴파일 진행한다. 즉, 다른 파일의 정보를 참조하여 컴파일을 진행하지 않는다. 그러므로 외부에 함수, 변수 등이 정의되어 있다면 컴파일러에게 알려줘야 한다. 컴파일러에게 알려주는 것은 몇 번이고 중복되도 상관없다.</p>
+<ol>
+<li><code>extern int num;</code> : <code>num</code> 변수가 다른 파일에 전역변수로 정의되어 있음을 알려준다.</li>
+<li><code>extern void increment();</code> , <code>void increment();</code> : 함수가 다른 파일에 정의되어 있음을 알려준다. 여기서는 <code>extern</code>이 생략 가능</li>
+</ol>
+</li>
+<li>
+<p>헤더파일 선언 : 헤더파일에 있는 변수, 함수, 매크로를 쓰는 <strong>소스파일에만</strong>, 구조체 정의를 쓰는 <strong>소스/헤더파일에만</strong> 추가하면 된다.</p>
+<ol>
+<li><code>#include &lt;stdio.h&gt;</code> : 표준 헤더파일이 저장되어 있는 디렉터리에서 파일을 찾는다.</li>
+<li><code>#include &quot;myheader.h&quot;</code> : 이 소스파일이 저장된 디렉터리에서 헤더파일을 찾는다.</li>
+<li><code>#include &quot;Release/header.h&quot;</code> : 소스파일이 있는 디렉터리의 하위폴더 <code>Release</code>에서 헤더파일을 찾는다.</li>
+<li><code>#include &quot;../header.h&quot;</code> : 소스파일이 있는 디렉터리의 상위폴더에서 헤더파일을 찾는다.</li>
+</ol>
+</li>
+<li>
+<p>헤더파일에 포함해야 하는 것</p>
+<ol>
+<li>
+<p>외부에 선언된 변수/함수에 접근/호출하기 위한 선언들 : 소스파일이 2개 이상이면 생길 수 밖에 없음</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// arith.h
+</span><span style="color:#75715e"></span><span style="color:#75715e">#ifndef __ARITH_H__ </span><span style="color:#75715e">// 구조체 정의가 포함되어 있는 &#34;stdiv.h&#34;을 포함함으로 헤더파일 중복삽입이 문제가 될 수 있기 때문에 미연에 방지하는게 좋다. 
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define __ARITH_H__
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdiv.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">int</span> num;
+Div <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>);
+
+<span style="color:#75715e">#endif
+</span></code></pre></div></li>
+<li>
+<p>매크로 : 매크로의 명령문도 파일 단위로만 유효하다.</p>
+</li>
+<li>
+<p>구조체의 정의 : 구조체의 정의는 그 구조체를 필요로 하는 모든 파일에 존재해야 한다. 그러나 구조체를 중복 정의하면 컴파일 에러 메시지가 뜨므로, 이를 조건부 컴파일을 이용해서 해결해야 한다. 구조체의 정의는 구조체의 정의만을 포함하거나 그 구조체와 관련된 함수들만이 포함된 파일로 만드는게 좋겠다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// stdiv.h
+</span><span style="color:#75715e"></span><span style="color:#75715e">#ifndef __STDIV_H__ </span><span style="color:#75715e">// 이와 같이 조건부 컴파일을 하면 자유롭게 #include &#34;stdiv.h&#34; 해도 괜찮다.
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define __STDIV_H__
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#66d9ef">int</span> quotient;
+  <span style="color:#66d9ef">int</span> remainder;
+} Div;
+
+<span style="color:#75715e">#endif
+</span></code></pre></div></li>
+</ol>
+</li>
+<li>
+<p>헤더파일ㅇ</p>
+</li>
+</ol>
+<h3 id="선행처리">선행처리<a hidden class="anchor" aria-hidden="true" href="#선행처리">#</a></h3>
+<p>컴파일러가 컴파일 하기 이전에 선행처리기가 먼저 처리하여 소스파일로 반환한다. 컴파일러가 아니기 때문에 선행처리 명령문들은 <code>#</code>으로 시작하여 끝에 세미콜론(<code>;</code>)을 붙이지 않는다. 그리고 보통은 매크로의 이름을 대문자로 정의한다. 여러 줄에 걸쳐서 정의할 때는 <code>\</code>문자를 활용하여 줄이 바뀌었음을 알려줘야 한다. 선행처리기가 파일 단위로 선행처리를 하기 때문에 매크로의 명령문도 파일단위로만 유효하다.</p>
+<ol>
+<li>
+<p><code>#define PI 3.14</code> : PI라는 문자를 볼 때마다 3.14로 치환한다.</p>
+</li>
+<li>
+<p><code>#define PRINT_HELLO puts(&quot;HELLO&quot;);</code> : PRINT_HELLO를 볼 때마다 해당 함수로 치환한다.</p>
+</li>
+<li>
+<p><code>#define SQUARE(X) ((X) *(X))</code>, `#define DIFF_ABS(x, y) ((x) &gt; (y) ? (x) - (y) : (y) - (x)) : 함수형 매크로의 경우 소괄호를 남발할정도로 많이 써야 한다.</p>
+<ul>
+<li>
+<p>문자열 내에서 매크로의 매개변수를 치환하고 싶으면 매크로 연산자 <code> #</code>을 써야 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define STRING_JOB(A, B) #A &#34;의 직업은 &#34; #B &#34;입니다. &#34;
+</span></code></pre></div></li>
+<li>
+<p>필요한 형태대로 단순하게 결합하려면 매크로 연산자  <code>##</code>을 써야 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define CON(UPP, LOW) UPP ## 00 ## LOW
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> CON(<span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">77</span>); <span style="color:#75715e">// 220077이 대입된다. 
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><code>#define ADD</code> 처럼 매크로의 몸체를 생략해서 정의해도 된다. 이렇게 정의하면 ADD라는 문구는 다 공백으로 대체가 된다.</p>
+</li>
+<li>
+<p><code>#include &lt;stdio.h&gt;</code> : <code>stdio.h</code> 파일의 모든 내용을 여기에다가 그대로 복사한다.</p>
+</li>
+<li>
+<p><code>#if A ... #elif B !!! #else ,,, #endif</code>  : <code>A</code>가 참이라면 <code>...</code> 컴파일, <code>B</code>가 참이라면 <code>!!!</code> 컴파일, 둘 다 아니라면  <code>,,,</code> 컴파일</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define ADD 1
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#if ADD </span><span style="color:#75715e">// ADD가 참이면 아래 줄을 컴파일함
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;+&#34;</span>);
+<span style="color:#75715e">#endif
+</span></code></pre></div></li>
+<li>
+<p><code>#ifdef A ... #else ,,, #endif</code> : <code>A</code>가 정의(<code>#define</code>)되어 있다면 <code>...</code> 컴파일, 아니면 <code>,,,</code>컴파일</p>
+<ul>
+<li><code>#ifndef A ... #else ,,, #endif</code> :  정의되어 있지 않다면</li>
+</ul>
+</li>
+<li></li>
+</ol>
+<h3 id="연속적인-문장">연속적인 문장<a hidden class="anchor" aria-hidden="true" href="#연속적인-문장">#</a></h3>
+<ol>
+<li><code>int num1 = 30, num2 = 40;</code> 여러 변수의 선언과 동시에 초기화를 할 때 comma를 쓴다.</li>
+<li><code>int* ptr1 = NULL, * ptr2 = NULL;</code> 여러 개의 포인터변수를 쓸 때는 이렇게 쓴다.</li>
+<li><code>num1 = num2 = 0;</code> 여러 개의 변수에 같은 값을 대입할 때 이렇게 쓴다.</li>
+<li><code>printf(&quot;Name: &quot;); scanf(&quot;%s&quot;, name);</code> 뭘 입력할지 안내하고 입력을 받을 때 이와 같이 한 줄로 입력하면 좋다.</li>
+</ol>
+<h3 id="반복문">반복문<a hidden class="anchor" aria-hidden="true" href="#반복문">#</a></h3>
+<ol>
+<li><code>do ~ while</code>과 <code>while</code>는 실제로 body가 1회 이상 실행되고, 조건문이 같고, body가 조건문에 영향을 주지 않는다면, 실행횟수는 똑같다.</li>
+<li>즉, 반복조건의 검사위치가 달라서 <code>do ~ while</code>은 최소 1회 이상 실행한다는 점이 <code>while</code>과의 유일한 차이점</li>
+<li>반복문의 반복횟수가 정해져 있다면, <code>for</code>를 쓰는것이 유리하다.</li>
+<li><code>break;</code>는 가장 가까이서 감싸고 있는 반복문 하나를 빠져나오는 것이다.</li>
+</ol>
+<h3 id="조건문">조건문<a hidden class="anchor" aria-hidden="true" href="#조건문">#</a></h3>
+<ol>
+<li><code>switch(n) ~ case</code>문에서 n은 정수형 변수이므로 <code>char</code>형도 포함된다.</li>
+<li>두 수 중 큰 수 혹은 작은 수를 계산하는 것은 <code>? :</code>을 잘 활용하자.</li>
+</ol>
+<h3 id="함수">함수<a hidden class="anchor" aria-hidden="true" href="#함수">#</a></h3>
+<ol>
+<li>함수의 선언에서는 <code>int increment(int);</code> 처럼 매개변수의 이름을 생략할 수 있다.</li>
+<li>함수가 호출되면 해당 함수의 복사본을 만들어서 실행한다고 생각해야함</li>
+<li>함수가 호출될 때 메모리 공간 내 stack영역에서 새로 공간이 할당되어서 해당 지역변수들이 생성된다.</li>
+<li>인자 전달의 기본방식은 **값의 복사(call-by-value)**이다. 즉, 복사가 되는 것 뿐이기 때문에, 함수가 호출되고 나면, 전달되는 인자와 매개변수는 별개가 된다.
+<ul>
+<li>call-by-reference : 그냥 단순하게 주소 값을 매개변수로 전달하는 경우</li>
+</ul>
+</li>
+<li>매개변수로 배열을 선언할 수 없다. 매개변수가 넘겨질 때 그만큼 새로 메모리공간을 할당하는데, 배열의 사이즈가 크면 stack을 초과할 수 있기 때문이다.</li>
+<li>매개변수로 1차원 배열을 넘길 때에는 다음과 같이 배열의 시작주소값을 넘겨야 한다.
+<ol>
+<li><code>void showArrayElem(int * param, int len);</code></li>
+<li><code>void shoWArrayElem(int param[], int len);</code></li>
+<li>매개변수에서만 <code>int param[]</code>과 <code>int* param</code>은 완전히 동일한 선언이다.</li>
+<li>주소값만을 넘겨서는 그 배열의 사이즈를 알 수 없으므로 항상 배열 사이즈와 함께 넘겨야 한다.</li>
+<li><code>sizeof(param)</code>은 <code>param</code>이 포인터 변수이므로 단순히 포인터 변수의 크기인 8을 반환한다.</li>
+<li>배열의 크기는 보통 <code>sizeof(param) / sizeof(param[0])</code>으로 넘기면 된다.</li>
+</ol>
+</li>
+<li>매개변수로 2차원 배열을 넘길 때에는 다음과 같이 배열 포인터와 행 사이즈를 넘겨야 한다.
+<ol>
+<li><code>void show2DArray(int (*arr)[4], int column);</code></li>
+<li><code>void show2DArray(int arr[][4], int column);</code></li>
+<li>매개변수에서만 <code>int (*arr)[4]</code>과 <code>int arr[][4]</code>은 완전히 동일한 선언이다.</li>
+<li>배열 포인터만을 넘겨서는 그 2차원배열의 행 개수를 알 수 없으므로 항상 행 사이즈와 함께 넘겨야 한다.</li>
+<li><code>sizeof(arr)</code>은 <code>arr</code>이 포인터 변수이므로 단순히 포인터 변수의 크기인 8을 반환한다.</li>
+<li>배열의 크기는 보통 <code>sizeof(arr) / sizeof(arr[0])</code>으로 넘기면 된다.(배열의 전체 크기 / 한 행의 크기)</li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">show2DArray</span>(<span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>arr)[<span style="color:#ae81ff">4</span>], <span style="color:#66d9ef">int</span> column) {
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> column; i<span style="color:#f92672">++</span>) {
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span>; j<span style="color:#f92672">++</span>) {
+      printf(<span style="color:#e6db74">&#34;%d &#34;</span>, arr[i][j]);
+    }
+    puts(<span style="color:#e6db74">&#34;&#34;</span>);
+  }
+}
+</code></pre></div><ol start="8">
+<li>함수에서 지역적으로 선언된 변수의 주소값을 반환하면 안된다. 함수가 반환되면 거기에 속해 있는 모든 지역변수들이 해제되기 때문이다. 이를 해결하려면 동적할당을 통해 힙의 영역에서 변수를 선언하고 이를 반환해야 한다.</li>
+<li>함수에서 반환할 때에도 리턴값을 복사해서 반환한다.</li>
+</ol>
+<h3 id="구조체struct">구조체(struct)<a hidden class="anchor" aria-hidden="true" href="#구조체struct">#</a></h3>
+<ol>
+<li>구조체 선언 방식</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 구조체 정의 방식 #1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> Point {
+   <span style="color:#66d9ef">int</span> xpos;
+   <span style="color:#66d9ef">int</span> ypos;
+};
+
+<span style="color:#66d9ef">struct</span> Point x;
+
+<span style="color:#75715e">// 구조체 정의 방식 #2 - 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> point {
+   <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>};
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> point Point;
+
+<span style="color:#75715e">// 구조체 정의 방식 #2 - 2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> point {
+   <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>} Point;
+
+<span style="color:#66d9ef">struct</span> Point x; <span style="color:#75715e">// 이렇게 둘 다 사용 가능
+</span><span style="color:#75715e"></span>Point y;
+
+<span style="color:#75715e">// 구조체 정의 방식 #3
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+   <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>} Point;
+
+Point x; <span style="color:#75715e">// struct 키워드로 선언 불가능
+</span></code></pre></div><ol start="2">
+<li>구조체 변수의 주소값은 구조체 변수의 첫 번째 멤버의 주소 값과 동일</li>
+<li><code>typedef</code> 키워드로 재정의할 경우 구조체 변수의 이름을 보통 대문자로 설정</li>
+<li><code>sizeof(struct)</code>를 계산하면 <code>struct</code>의 모든 멤버의 sizeof 결과를 더한것과 같다.</li>
+</ol>
+<h3 id="공용체union">공용체(union)<a hidden class="anchor" aria-hidden="true" href="#공용체union">#</a></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+   <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> upper;
+   <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> lower;
+} DBShort;
+
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">union</span> {
+   <span style="color:#66d9ef">int</span> iBuf;
+   <span style="color:#66d9ef">char</span> bBuf[<span style="color:#ae81ff">4</span>];
+   DBShort sBuf;
+} RDBuf;
+</code></pre></div><ol>
+<li>위 사례처럼 <code>union</code>은 같은 메모리를 다양하게 해석하고, 접근할 수 있다.
+<ol>
+<li>4bytes 메모리 공간을 <code>rdBuf.iBuf</code>로 접근하면 하나의 int 정수로 접근</li>
+<li><code>rdBuf.bBuf</code>로 접근하면 크기가 4인 문자 배열로 접근</li>
+<li><code>rdBuf.sBuf</code>로 접근하면 상위 2bytes, 하위 2bytes로 short 2개로 접근할 수 있다.</li>
+</ol>
+</li>
+</ol>
+<h3 id="열거형enum">열거형(enum)<a hidden class="anchor" aria-hidden="true" href="#열거형enum">#</a></h3>
+<p>변수에 저장이 가능한 정수 값들을 나열한것으로 정수로 인식됨</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">enum</span> syllable {
+   Do<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, Re<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, Mi, Fa<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, So <span style="color:#75715e">// 1, 3, 4, 8, 9
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">enum</span> { <span style="color:#75715e">// 자료형의 이름을 생략한 형태로 정의
+</span><span style="color:#75715e"></span>   Do, Re, Mi, Fa, So <span style="color:#75715e">// 0, 1, 2, 3, 4
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="문자열">문자열<a hidden class="anchor" aria-hidden="true" href="#문자열">#</a></h3>
+<ol>
+<li>&lsquo;<code>\0'</code>은 ascii값이 0으로 이를 문자의 형태로 출력할 경우, 아무런 출력이 발생하지 않는다.(공백(<code>' '</code>)이 출력되는 것과 다름)</li>
+<li><strong>문자열 != 문자배열</strong> : 문자열을 구분할 때 마지막에 항상 <code>\0</code>이 있어야 한다. 그래야만 정상적으로 문자열이 출력된다.
+<ul>
+<li><code>str[strlen(str) - 1] = 0</code> : str 문자열의 마지막에 null문자 대입, <code>'\0'</code>과 <code>0</code>을 넣는 것은 같은 의미(ascii 값이 같으므로)</li>
+<li>null 문자가 없으면 단순한 문자 배열이다.</li>
+</ul>
+</li>
+<li>C언어에서는 개행을 <code>\n</code>으로 표시하기로 약속한다. 이는 C언어에서만 해당한다.
+<ol>
+<li>MS-DOS(Windows) : <code>\r\n</code></li>
+<li>Mac OS : <code>\r</code></li>
+<li>Unix 계열: <code>\n</code></li>
+</ol>
+</li>
+<li>문자열이 파일에 저장될 때에는 문자열의 끝을 의미하는 널 문자는 저장되지 않는다. 때문에 파일에서는 개행을 기준으로 문자열을 구분한다.</li>
+<li>문자열을 나란히 선언하면 하나의 문자열로 간주된다. 즉 <code>&quot;ABC&quot; &quot;DEF&quot;</code>는 <code>&quot;ABCDEF&quot;</code>와 같다.</li>
+</ol>
+<h3 id="배열">배열<a hidden class="anchor" aria-hidden="true" href="#배열">#</a></h3>
+<h4 id="1차원-배열">1차원 배열<a hidden class="anchor" aria-hidden="true" href="#1차원-배열">#</a></h4>
+<ol>
+<li><code>int arr[3] = {1 };</code> : 나머지 <code>arr[1]</code>, <code>arr[2]</code>는 0으로 초기화</li>
+<li><code>int arr[] = {4, 5, 6};</code> : <code>arr</code>의 사이즈는 3으로 자동 결정</li>
+<li><code>M</code> 사이즈인 1차원 배열 동적할당: <code>int * ptr = (int*)malloc(sizeof(int) * M);</code></li>
+</ol>
+<h4 id="2차원-배열">2차원 배열<a hidden class="anchor" aria-hidden="true" href="#2차원-배열">#</a></h4>
+<ol>
+<li><code>int arr2d[2][4] = {1, 2, 3, 4, 5, 6, 7, 8};</code> : 1차원 배열처럼 초기화 가능</li>
+<li><code>int arr2d[][4] = {{1, 2, 3}, {5, 6}};</code> : <code>arr[0][3]</code>, <code>arr[1][2]</code>, <code>arr[1][3]</code>은 0으로 초기화</li>
+<li><code>int arr2d[][4] = {1, 2, 3, 4, 5, 6, 7, 8};</code> : 세로의 길이만 생략 가능</li>
+<li>위 2차원 배열의 이름인 <code>arr2d</code>는 <strong>이중 포인터가 아니라 배열 포인터다!</strong>
+<ul>
+<li><code>arr2d</code>는 <code>&amp;arr2d[0][0]</code>을 뜻하면서도 배열 전체를 의미하고, <code>int (*ptr1)[4]</code>의 타입이다.</li>
+<li><code>arr2d[i]</code>는 <code>&amp;arr2d[0][0]</code>을 뜻하면서도 배열 i번째 행 전체를 의미하고, <code>int* ptr2</code>의 타입이다.</li>
+<li><code>sizeof(arr2d)</code>는 2 * 4 * sizeof(int)를 반환한다.</li>
+<li><code>sizeof(arr2d[i])</code>는 4 * sizeof(int)를 반환한다.</li>
+<li>고로, <code>arr2d</code> != <code>arr2d[i]</code></li>
+</ul>
+</li>
+<li><code>int (*ptr1)[4] = matrix;</code>에서 배열포인터 변수 <code>ptr1</code>은 int형 변수를 가리키면서 포인터 연산시 sizeof(int) * 4의 크기 단위로 값이 증가 및 감소한다.</li>
+<li>배열 포인터 != 포인터 배열
+<ol>
+<li><code>int* a[4];</code> : 포인터 배열 = int형 포인터 4개를 담고 있는 배열</li>
+<li><code>int (*b)[4];</code> : 배열 포인터 = int변수를 가리키고 포인터 연산시 sizeof(int) * 4만큼 증감하는 포인터</li>
+</ol>
+</li>
+<li><code>MxN</code> 사이즈인 2차원 배열(행 = M, 열 = N) 동적할당 및 해제 :</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span><span style="color:#f92672">**</span> arr2d <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span><span style="color:#f92672">**</span>)malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span>) <span style="color:#f92672">*</span> M);
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> M; i<span style="color:#f92672">++</span>) {
+  arr2d[i] <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span> N);
+}
+
+<span style="color:#75715e">// 해제 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> M; i<span style="color:#f92672">++</span>) {
+  free(arr2d[i]);
+}
+free(arr2d);
+</code></pre></div><p><img loading="lazy" src="https://1.bp.blogspot.com/-gbdKeTg6IWM/V2y6DhPvhuI/AAAAAAAAANA/5vDmti9xLvkReh1TO8GZEq4Y2K41hBn4gCLcB/s400/2%25EC%25B0%25A8%25EC%259B%2590%2B%25EB%25B0%25B0%25EC%2597%25B4%2B%25EB%258F%2599%25EC%25A0%2581%25ED%2595%25A0%25EB%258B%25B9%2B%25EB%258F%2584%25EC%258B%259D%25EB%258F%2584.PNG" alt=""  />
+</p>
+<h2 id="pointer">Pointer<a hidden class="anchor" aria-hidden="true" href="#pointer">#</a></h2>
+<h3 id="포인터-변수-vs-포인터-상수">포인터 변수 vs 포인터 상수<a hidden class="anchor" aria-hidden="true" href="#포인터-변수-vs-포인터-상수">#</a></h3>
+<h4 id="포인터-변수">포인터 변수<a hidden class="anchor" aria-hidden="true" href="#포인터-변수">#</a></h4>
+<p>메모리의 주소 값을 저장하기 위한 변수</p>
+<ol>
+<li>64bit OS, 64bit으로 컴파일했을 때 <code>sizeof(ptr) == 8</code>로 계산된다.</li>
+<li><code>&amp;</code>연산자는 변수만이 피연산자가 될 수 있다.</li>
+<li>포인터의 형(type)은 메모리 공간을 참조하는 기준이 되어서 <code>*</code>연산할 때 메모리 공간의 접근 기준이 된다.
+<ul>
+<li>즉, <code>*pnum</code>은 <code>pnum</code>의 포인터 자료형에 따라서 해당하는 주소에서 몇 바이트를 읽을지, 정수/실수형으로 해석할지 판단한다.</li>
+</ul>
+</li>
+<li><code>const int* ptr;</code>은 포인터 변수 <code>ptr</code>을 이용해서 <code>ptr</code>이 가리키는 변수에 저장된 값을 변경하는 것을 허용하지 않겠다는 뜻</li>
+<li><code>int* const ptr;</code>은 포인터 변수 <code>ptr</code>에 저장된 주소값을 변경하는 것을 허용하지 않겠다는 뜻
+<ul>
+<li><code>const int</code>인지 <code>const ptr</code>인지로 구분하면 좋겠다.</li>
+</ul>
+</li>
+<li><code>void*</code>는 형(type)이 존재하지 않는 포인터다.
+<ol>
+<li>함수포인터, 배열포인터 등등 무엇이든 그것의 주소만을 담을 수 있는 포인터</li>
+<li>포인터 연산(값의 변경 및 참조 등)을 하려면 캐스팅한 후 진행해야 한다.</li>
+</ol>
+</li>
+</ol>
+<h4 id="포인터-상수상수-형태의-포인터">포인터 상수(상수 형태의 포인터)<a hidden class="anchor" aria-hidden="true" href="#포인터-상수상수-형태의-포인터">#</a></h4>
+<p>메모리의 주소 값이지만 그 주소값을 변경할 수 없는 상수</p>
+<ol>
+<li>배열의 이름은 배열의 시작 주소값을 의미하며, 그 형태는 값의 저장이 불가능한 상수이다.</li>
+<li>배열의 이름과 포인터 변수는 변수냐 상수냐의 특성적 차이만 있을 뿐, 둘 다 포인터이기 때문에 포인터 변수로 할 수 있는 연산은 배열의 이름으로도 할 수 있고, 배열의 이름으로 할 수 있는 연산은 포인터 변수로도 할 수 있다.
+<ul>
+<li>즉, <code>int* ptr;</code> 이면 <code>ptr[2]</code>은 int 배열에서 3번째 원소를 가리킨다.</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> arr[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">34</span>};
+<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>arr[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// int* ptr = arr;
+</span><span style="color:#75715e"></span>
+printf(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, arr[<span style="color:#ae81ff">0</span>], ptr[<span style="color:#ae81ff">0</span>]); <span style="color:#75715e">// 15 15
+</span><span style="color:#75715e"></span>printf(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, arr[<span style="color:#ae81ff">1</span>], ptr[<span style="color:#ae81ff">1</span>]); <span style="color:#75715e">// 25 25
+</span><span style="color:#75715e"></span>printf(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, arr[<span style="color:#ae81ff">2</span>], ptr[<span style="color:#ae81ff">2</span>]); <span style="color:#75715e">// 34 34
+</span><span style="color:#75715e"></span>printf(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>arr, <span style="color:#f92672">*</span>ptr); <span style="color:#75715e">// 15 15
+</span></code></pre></div><ol start="3">
+<li>문자열을 두 가지 형태로 선언할 수 있다.
+<ol>
+<li><code>char str1[] = &quot;My String&quot;;</code> : str1은 계속 문자열이 저장된 위치를 가리켜야 한다.</li>
+<li><code>char * str2 = &quot;My String&quot;;</code> : str2는 다른 문자열을 가리킬 수 있다.</li>
+</ol>
+</li>
+<li>함수의 이름은 함수가 저장된 메모리공간의 주소값을 의미한다.
+<ul>
+<li><code>int (*fptr) (int);</code> 매개변수가 int 하나 있고, 반환형이 int인 함수 포인터</li>
+<li><code>void (*fptr2) (char*, int);</code> 매개변수가 char*, int이고, 반환형이 없는 함수포인터</li>
+</ul>
+</li>
+</ol>
+<h4 id="포인터-연산">포인터 연산<a hidden class="anchor" aria-hidden="true" href="#포인터-연산">#</a></h4>
+<ul>
+<li>int형 포인터를 대상으로 n의 크기만큼 값을 증가 및 감소 시, n * sizeof(int) 의 크기만큼 주소 값이 증가 및 감소</li>
+<li>double형 포인터를 대상으로 n의 크기만큼 값을 증가 및 감소 시, n * sizeof(double) 의 크기만큼 주소 값이 증가 및 감소</li>
+<li>1차원배열 arr에서 <code>arr[i] == *(arr + i)</code>, <code>&amp;arr[i] == arr + i</code></li>
+<li>2차원배열 arr2d에서 <code>*(arr2d[i] + j) == (*(arr+i))[j] == *(*(arr+i)+j) == arr[i][j]</code></li>
+<li><code>sizeof(ptr)</code>은 포인터 변수 <code>ptr</code>의 크기인 8을 반환하지만, <code>sizeof(arr)</code>와 같이 포인터 상수는 배열 arr의 크기를 반환한다. 즉, <code>sizeof</code>를 갖고 배열의 크기를 반환하고 싶으면 포인터 상수를 피연산자로 넣어야 한다.</li>
+<li></li>
+</ul>
+<h4 id="포인터-배열">포인터 배열<a hidden class="anchor" aria-hidden="true" href="#포인터-배열">#</a></h4>
+<p>포인터 변수로 이루어진 배열</p>
+<ol>
+<li><code>char* str[3];</code>은 문자열을 3개 저장할 수 있는 char형 포인터 배열이다.</li>
+</ol>
+<h4 id="이중-포인터더블-포인터">이중 포인터(더블 포인터)<a hidden class="anchor" aria-hidden="true" href="#이중-포인터더블-포인터">#</a></h4>
+<p>포인터를 가리키는 포인터 변수</p>
+<ol>
+<li><code>int* arr[3];</code>에서 arr은 포인터 배열의 첫주소를 가리키므로 <code>int**</code>이다.</li>
+</ol>
+<h1 id="자주-쓰는-함수-정리">자주 쓰는 함수 정리<a hidden class="anchor" aria-hidden="true" href="#자주-쓰는-함수-정리">#</a></h1>
+<h2 id="stdioh">&lt;stdio.h&gt;<a hidden class="anchor" aria-hidden="true" href="#stdioh">#</a></h2>
+<h3 id="서식지정-입출력--printf-vs-fprintf-vs-sprintf-vs-scanf-vs-fscanf-vs-sscanf">서식지정 입출력 : printf() vs fprintf() vs sprintf() vs scanf() vs fscanf() vs sscanf()<a hidden class="anchor" aria-hidden="true" href="#서식지정-입출력--printf-vs-fprintf-vs-sprintf-vs-scanf-vs-fscanf-vs-sscanf">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>콘솔</th>
+<th>파일</th>
+<th>문자열</th>
+<th>호출 성공시</th>
+<th>호출 실패시</th>
+<th>파일의 끝에 도달시</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int printf(const char* formatString, ...);</code></td>
+<td>O</td>
+<td>X</td>
+<td>X</td>
+<td>출력된 문자의 수 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int fprintf(FILE* stream, const char* formatString, ...);</code></td>
+<td>O</td>
+<td>O</td>
+<td>X</td>
+<td>출력된 문자의 수 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int sprintf(char* buffer, const char* formatString, ...);</code></td>
+<td>X</td>
+<td>X</td>
+<td>O</td>
+<td>끝에 <code>\0</code>을 뺀 작성된 바이트 수 반환</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int scanf(const char* formatString, ...);</code></td>
+<td>O</td>
+<td>X</td>
+<td>X</td>
+<td>입력된 문자의 수 반환</td>
+<td><code>EOF</code> 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+</tr>
+<tr>
+<td><code>int fscanf(FILE* stream, const char* formatString, ...);</code></td>
+<td>O</td>
+<td>O</td>
+<td>X</td>
+<td>입력된 문자의 수 반환</td>
+<td><code>EOF</code> 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+</tr>
+<tr>
+<td><code>int sscanf(const char* src, const char* formatString, ...);</code></td>
+<td>X</td>
+<td>X</td>
+<td>O</td>
+<td>성공적으로 변환된 필드 수 반환</td>
+<td><code>EOF</code> 반환</td>
+<td><code>EOF</code> 반환(문자열이 끝날 시)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>float</code>, <code>double</code>, <code>long double</code>의 데이터 <strong>출력</strong>에 사용되는 서식문자는 <code>%f</code>, <code>%f</code>, <code>%Lf</code>이다.</li>
+<li><code>float</code>, <code>double</code>, <code>long double</code>의 데이터 <strong>입력</strong>에 사용되는 서식문자는 <code>%f</code>, <code>%lf</code>, <code>%Lf</code>이다.</li>
+</ul>
+<h4 id="printf-fprintf-sprintf">printf(), fprintf(), sprintf()<a hidden class="anchor" aria-hidden="true" href="#printf-fprintf-sprintf">#</a></h4>
+<p>각 필드들을 입력하여 서식지정을 통해서 새롭게 만들어낸 문자열을 콘솔/파일/문자열에 출력하는 함수들이다.</p>
+<ol>
+<li>서식문자</li>
+</ol>
+<p><img loading="lazy" src="https://t1.daumcdn.net/cfile/tistory/99D37A3359FAD63934" alt="서식문자"  />
+</p>
+<ul>
+<li><code>%8d</code> : 필드 폭을 8칸 확보후 오른쪽 정렬</li>
+<li><code>%-8d</code> : 필드 폭을 8칸 확보후 왼쪽 정렬</li>
+</ul>
+<ol start="2">
+<li><code>printf(...)</code>는 <code>fprintf(stdout, ...)</code>와 똑같다.</li>
+<li><code>sprintf()</code>는 포맷의 형식으로 문자열을 버퍼(char*)에 출력한다.
+<ul>
+<li>이를 이용하여 숫자를 문자열로 바꿀 수 있다.  ex.<code>sprintf(str, &quot;%d&quot;, 240);</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="scanf-fscanf-sscanf">scanf(), fscanf(), sscanf()<a hidden class="anchor" aria-hidden="true" href="#scanf-fscanf-sscanf">#</a></h4>
+<p>콘솔/파일/문자열로부터 문자열을 서식지정된 패턴으로 입력받아 파싱하여 각 필드에 저장하는 함수들이다.</p>
+<ol>
+<li>공백(, <code>\t</code>, <code>\n</code>)을 기준으로 데이터 구분하고, 공백 문자를 입력버퍼에 남겨두고 그 앞까지 받아들인다. (<code>%d</code>이든, <code>%s</code>이든 상관없이)</li>
+<li>그러므로 보통 공백을 포함하는 문장은 scanf()로 입력받는 것은 적절치 못하다. (fgets()로 받고 후속조치할 것)</li>
+<li>함수 호출 시 변수의 주소값을 넘기는 call-by-reference를 하는 이유는 스트림으로부터 입력을 받아서 해당 변수의 주소값에 직접 접근해서 채워넣기 위함이다.</li>
+<li>서식 문자 : printf()와 비슷하면서 다르므로 별도로 기억해야 한다.
+<ol>
+<li><code>%d</code> : 10진수 정수</li>
+<li><code>%o</code> : 8진수 양의 정수</li>
+<li><code>%x</code> : 16진수 양의 정수</li>
+<li><code>%f</code>, <code>%e</code>, <code>%g</code> : float형 데이터</li>
+<li><code>%lf</code> : double형 데이터</li>
+<li><code>%Lf</code> : long double형 데이터</li>
+<li><code>%s</code> : 문자열(공백 이전까지)</li>
+</ol>
+</li>
+<li><code>scanf(...)</code>는 <code>fscanf(stdin, ...)</code>와 똑같다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">10</span>];
+<span style="color:#66d9ef">char</span> sex;
+<span style="color:#66d9ef">int</span> age;
+<span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> fscanf(fp, <span style="color:#e6db74">&#34;%s %c %d&#34;</span>, name <span style="color:#f92672">&amp;</span>sex, <span style="color:#f92672">&amp;</span>age);
+<span style="color:#66d9ef">if</span> (ret <span style="color:#f92672">==</span> EOF) {
+  <span style="color:#75715e">// 함수 오류 혹은 파일의 끝에 도달
+</span><span style="color:#75715e"></span>  
+  <span style="color:#66d9ef">if</span> (feof(fp) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+    <span style="color:#75715e">// 파일의 끝에 도달
+</span><span style="color:#75715e"></span>  }
+}
+</code></pre></div><h3 id="문자-입출력--putchar-vs-fputc-vs-getchar-vs-fgetc">문자 입출력 : putchar() vs fputc() vs getchar() vs fgetc()<a hidden class="anchor" aria-hidden="true" href="#문자-입출력--putchar-vs-fputc-vs-getchar-vs-fgetc">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>콘솔</th>
+<th>파일</th>
+<th>호출 성공시</th>
+<th>호출 실패시</th>
+<th>파일의 끝에 도달시</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int putchar(int ch);</code></td>
+<td>O</td>
+<td>X</td>
+<td><code>ch</code> 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int fputc(int ch, FILE* stream);</code></td>
+<td>O</td>
+<td>O</td>
+<td><code>ch</code> 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int getchar(void);</code></td>
+<td>O</td>
+<td>X</td>
+<td>버퍼로부터 문자 1개</td>
+<td><code>EOF</code> 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+</tr>
+<tr>
+<td><code>int fgetc(FILE* stream);</code></td>
+<td>O</td>
+<td>O</td>
+<td>버퍼로부터 문자 1개</td>
+<td><code>EOF</code> 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><code>getchar()</code> 와 <code>fgetc()</code> 의 반환형이 <code>char</code>가 아닌 <code>int</code>인 이유는 <code>EOF</code>가 -1이기 때문이다.</li>
+<li>서식지정할 필요없이 문자 하나 단순 입력/출력하는 것이라면 <code>scanf()</code>나 <code>printf()</code>보다 메모리공간을 덜 차지하고, 속도가 빠른 위 함수를 쓰자.</li>
+</ol>
+<h3 id="문자열-입출력--puts-vs-fputs-vs-gets-vs-fgets">문자열 입출력 : puts() vs fputs() vs gets() vs fgets()<a hidden class="anchor" aria-hidden="true" href="#문자열-입출력--puts-vs-fputs-vs-gets-vs-fgets">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>콘솔</th>
+<th>파일</th>
+<th>호출 성공시</th>
+<th>호출 실패시</th>
+<th>파일의 끝에 도달시</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int puts(const char* str);</code></td>
+<td>O</td>
+<td>X</td>
+<td>음수가 아닌 값</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td>항상 끝에 자동적으로 개행</td>
+</tr>
+<tr>
+<td><code>int fputs(const char* str, FILE* stream);</code></td>
+<td>O</td>
+<td>O</td>
+<td>음수가 아닌 값</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td>자동적으로 개행 안함</td>
+</tr>
+<tr>
+<td><code>char* gets(char* str);</code></td>
+<td>O</td>
+<td>X</td>
+<td><code>str</code></td>
+<td><code>NULL</code> 반환</td>
+<td><code>NULL</code> 반환</td>
+<td>쓰지 말것(오버플로우 위험)</td>
+</tr>
+<tr>
+<td><code>char* fgets(char* str, int n, FILE* stream);</code></td>
+<td>O</td>
+<td>O</td>
+<td><code>str</code></td>
+<td><code>NULL</code> 반환</td>
+<td><code>NULL</code> 반환</td>
+<td><code>\n</code>을 만날 때까지 또는 <code>\0</code>를 포함한  <code>n</code>개만큼 읽되, 공백문자와 <code>\n</code>을 포함해서 읽는다.</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>아래의 사례와 같이 문자열을 입력 받으면 문자열의 끝에 자동으로 <code>\0</code> 문자가 추가된다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">7</span>];
+fgets(str, <span style="color:#66d9ef">sizeof</span>(str), stdin); <span style="color:#75715e">// &#34;123456789&#34; 입력
+</span><span style="color:#75715e"></span>
+puts(str); <span style="color:#75715e">// &#34;123456&#34; 출력 : 널 문자를 포함하여 7개이므로, 6개 문자를 버퍼로부터 입력받음
+</span></code></pre></div><ol start="2">
+<li>아래의 사례와 같이 <code>\n</code>을 만날 때까지 문자열을 읽어 들이는데, <code>\n</code>을 제외시키거나 버리지 않고 문자열의 일부로 받아들인다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">7</span>];
+fgets(str, <span style="color:#66d9ef">sizeof</span>(str), stdin); <span style="color:#75715e">// &#34;1234&#34; 입력 후 엔터칠 때 입력버퍼로 &#34;1234\n&#34;이 삽입됨
+</span><span style="color:#75715e"></span>
+puts(str); <span style="color:#75715e">// &#34;1234\n&#34; 출력 : 개행문자를 비롯한 공백문자도 문자열의 일부로 받아들임
+</span><span style="color:#75715e"></span>str[strlen(str) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 개행문자가 포함된 경우 개행문자를 `\0`으로 바꿈
+</span></code></pre></div><ol start="3">
+<li>서식지정할 필요없이 문자열을 단순 입력/출력하는 것이라면 <code>scanf()</code>나 <code>printf()</code>보다 메모리공간을 덜 차지하고, 속도가 빠른 위 함수를 쓰자.</li>
+</ol>
+<h3 id="파일관련--fopen-fclose-fflush-feof-fseek-ftell">파일관련 : fopen(), fclose(), fflush(), feof(), fseek(), ftell()<a hidden class="anchor" aria-hidden="true" href="#파일관련--fopen-fclose-fflush-feof-fseek-ftell">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>호출 성공시</th>
+<th>호출 실패시</th>
+<th>파일의 끝에 도달시</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FILE* fopen(const char* filename, const char* mode);</code></td>
+<td><code>FILE*</code> 반환</td>
+<td><code>NULL</code> 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int flose(FILE* stream);</code></td>
+<td>0 반환</td>
+<td><code>EOF</code>반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int fflush(FILE* stream);</code></td>
+<td>0 반환</td>
+<td><code>EOF</code> 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>int feof(FILE* stream);</code></td>
+<td></td>
+<td></td>
+<td>0이 아닌 값 반환</td>
+<td>파일의 끝이 아닐 경우 0 반환</td>
+</tr>
+<tr>
+<td><code>int fseek(FILE* stream, long offset, int wherefrom);</code></td>
+<td>0 반환</td>
+<td>0이 아닌값 반환</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long ftell(FILE* stream);</code></td>
+<td>파일 위치 지시자의 offset 반환</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="fopen">fopen()<a hidden class="anchor" aria-hidden="true" href="#fopen">#</a></h4>
+<ol>
+<li>읽기만 가능할 때 파일이 없으면 에러 발생하여 <code>NULL</code> 반환한다.</li>
+<li>쓰기 -&gt; 읽기, 읽기 -&gt; 쓰기로 작업을 변경할 때 메모리 버퍼를 비워줘야 하고 잘못 사용될 수 있기 때문에 웬만하면 <code>r</code>, <code>w</code>, <code>a</code> 중에서 선택하는 것이 좋다.</li>
+<li>텍스트 모드(<code>t</code>)와 바이너리 모드(<code>b</code>)
+<ol>
+<li>기본값은 텍스트 모드이다.</li>
+<li><code>w+t</code>와 <code>wt+</code>는 같은 의미이다.</li>
+</ol>
+</li>
+<li>텍스트 모드로 개방하면 아래의 변환이 자동적으로 이루어진다.(ex. Windows)
+<ol>
+<li>C 프로그램에서 <code>\n</code>을 파일에 저장하면 <code>\r\n</code>으로 변환되어 저장됨</li>
+<li>파일에 저장된 <code>\r\n</code>을 C프로그램 상에서 읽으면 <code>\n</code>으로 변환되어 읽혀짐</li>
+<li>즉, 텍스트모드로 개방하면 운영체제 별로 개행 문자가 다른 것을 신경 쓸 필요가 없어진다.</li>
+</ol>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>모드</th>
+<th>스트림 성격</th>
+<th>파일이 없으면?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r</code></td>
+<td>읽기 가능</td>
+<td>에러</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>쓰기 가능</td>
+<td>생성</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>파일의 끝에 덧붙여 쓰기 가능</td>
+<td>생성</td>
+</tr>
+<tr>
+<td><code>r+</code></td>
+<td>읽기/쓰기 가능</td>
+<td>에러</td>
+</tr>
+<tr>
+<td><code>w+</code></td>
+<td>읽기/쓰기 가능</td>
+<td>생성</td>
+</tr>
+<tr>
+<td><code>a+</code></td>
+<td>읽기/덧붙여 쓰기 가능</td>
+<td>생성</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fclose">fclose()<a hidden class="anchor" aria-hidden="true" href="#fclose">#</a></h4>
+<ol>
+<li>운영체제가 할당한 자원의 반환</li>
+<li>출력 버퍼에 버퍼링 되었던 데이터의 출력 및 출력버퍼를 비움
+<ul>
+<li>즉, <code>fclose()</code>를 호출할 때 그제서야 파일 저장을 한다는 뜻이다.</li>
+</ul>
+</li>
+</ol>
+<h4 id="fflush">fflush()<a hidden class="anchor" aria-hidden="true" href="#fflush">#</a></h4>
+<ol>
+<li>출력버퍼의 비워짐 = 출력버퍼에 저장된 데이터가 버퍼를 떠나서 목적지로 이동된다.</li>
+<li>입력버퍼의 비워짐 = 입력버퍼의 데이터 소멸
+<ol>
+<li><code>fflush(stdin);</code>은 컴파일러에 따라 다른 결과를 보이므로 하면 안된다.</li>
+<li><code>while (getchar() != '\n');</code>로 <code>\n</code>를 만날 때까지 <code>\n</code>을 포함해서 문자를 읽어들여 입력버퍼를 비울 수 있다.</li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (fflush(stdout) <span style="color:#f92672">==</span> EOF) { 
+  <span style="color:#75715e">// 실패
+</span><span style="color:#75715e"></span>  exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+} 
+<span style="color:#66d9ef">else</span> {
+  <span style="color:#75715e">//성공
+</span><span style="color:#75715e"></span>} 
+</code></pre></div><h4 id="feof">feof()<a hidden class="anchor" aria-hidden="true" href="#feof">#</a></h4>
+<p>파일의 마지막까지 저장된 데이터를 모두 읽어들일 때 반드시 파일의 끝을 확인해야 한다.</p>
+<p>다음의 경우일때 <code>feof()</code>를 통해서 파일의 끝인지 확인해야 한다.</p>
+<ol>
+<li><code>getchar()</code>, <code>fgetc()</code>의 경우에는 파일의 끝에 도달했거나 오류났을 경우에 (문자 하나 이므로) <code>EOF</code>를 반환한다.</li>
+<li><code>gets()</code>, <code>fgets()</code>의 경우에는 파일의 끝에 도달했거나 오류났을 경우에 (문자열 이므로) <code>NULL</code>을 반환한다.</li>
+<li><code>fread()</code>의 경우에는 파일의 끝에 도달했거나 오류났을 경우에 매개변수 count보다 작은 값을 반환한다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> (feof(fp) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+  <span style="color:#75715e">// 파일의 끝에 도달했다
+</span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+  <span style="color:#75715e">// 파일의 끝이 아니다
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h4 id="fseek-ftell">fseek(), ftell()<a hidden class="anchor" aria-hidden="true" href="#fseek-ftell">#</a></h4>
+<ol>
+<li>파일의 끝은 파일의 마지막 데이터가 아니라 파일의 끝을 표시하기 위해서 삽입이 되는 <code>EOF</code>를 의미한다.</li>
+<li><code>fseek()</code>의 매개변수 <code>wherefrom</code>에 전달되는 상수
+<ol>
+<li><code>SEEK_SET</code> : 파일 맨 앞(첫 번째 바이트)에서부터 이동을 시작</li>
+<li><code>SEEK_CUR</code> : 현재 위치에서부터 이동을 시작</li>
+<li><code>SEEK_END</code> : 파일 맨 끝(<code>EOF</code>)에서부터 이동을 시작</li>
+</ol>
+</li>
+<li><code>fseek()</code>의 <code>offset</code>이 음수인 경우에 파일 앞쪽으로 이동한다.</li>
+<li><code>fgetc()</code>, <code>fgets()</code> 등을 통해서 파일로부터 입력을 진행하면 그만큼 파일 위치 지시자는 이동한다.</li>
+<li><code>ftell()</code>을 이용해서 파일 위치 지시자를 다시 이전 위치로 되돌릴 수 있다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">putchar(fgetc(fp));
+fpos <span style="color:#f92672">=</span> ftell(fp); <span style="color:#75715e">// 현재 파일 위치(offset) 저장
+</span><span style="color:#75715e"></span>fseek(fp, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, SEEK_END); <span style="color:#75715e">// 파일 끝에서 첫번째 바이트를 가리킨다.(즉, 파일의 마지막 데이터)
+</span><span style="color:#75715e"></span>putchar(fgetc(fp));
+fseek(fp, fpos, SEEK_SET); <span style="color:#75715e">// 이전 파일 위치로 복귀
+</span></code></pre></div><h3 id="fread-vs-fwrite">fread() vs fwrite()<a hidden class="anchor" aria-hidden="true" href="#fread-vs-fwrite">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>호출 성공시</th>
+<th>호출 실패시</th>
+<th>파일의 끝에 도달시</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>size_t fread(void* buffer, size_t size, size_t count, FILE* stream);</code></td>
+<td><code>count</code> 반환</td>
+<td><code>count</code>보다 작은 값 반환</td>
+<td><code>count</code>보다 작은 값 반환</td>
+<td></td>
+</tr>
+<tr>
+<td><code>size_t fwrite(const void* buffer, size_t size, size_t count, FILE* stream);</code></td>
+<td><code>count</code> 반환</td>
+<td><code>count</code>보다 작은 값 반환</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><code>fread()</code>은 읽어 들인 바이트 수가 아니라 데이터 개수를 반환한다.</li>
+<li>매개변수 <code>size</code>는 한 데이터의 크기를 뜻하고, 매개변수 <code>count</code>는 그 데이터의 개수를 뜻한다. 즉, 총 <code>size * count</code> bytes 크기 만큼 바이너리 파일로 입출력한다.</li>
+<li>구조체는 바이너리 데이터로 인식하여 <code>fread()</code>와 <code>fwrite()</code> 함수로 파일 입출력을 처리한다.</li>
+</ol>
+<h2 id="stringh">&lt;string.h&gt;<a hidden class="anchor" aria-hidden="true" href="#stringh">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>함수</th>
+<th>return</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>size_t strlen(cosnt char* s);</code></td>
+<td>전달된 문자열의 길이를 반환</td>
+<td>널 문자(<code>\0</code>)는 길이에 포함하지 않음</td>
+</tr>
+<tr>
+<td><code>char* strcpy(char* dest, const char* src);</code></td>
+<td><code>dest</code> 값 반환</td>
+<td></td>
+</tr>
+<tr>
+<td><code>char* strncpy(char* dest, const char* src, size_t n);</code></td>
+<td><code>dest</code> 값 반환</td>
+<td><code>src</code>의 문자열을 <code>dest</code>에 복사하되, <code>src</code>의 길이가 매우 길다면 n만큼의 길이만큼 복사<br /><code>\0</code>문자를 고려하지 않으므로 마지막에 널 문자를 따로 넣어줘야 한다.(아래 1번 참조)</td>
+</tr>
+<tr>
+<td><code>char* strcat(char* dest, const char* stc);</code></td>
+<td><code>dest</code> 값 반환</td>
+<td></td>
+</tr>
+<tr>
+<td><code>char* strncat(char* dest, const char* src, size_t n);</code></td>
+<td><code>dest</code> 값 반환</td>
+<td><code>src</code>의 문자열 중 최대 <code>n</code>개만큼 덧붙이고, <code>\0</code>를 반드시 자동으로 넣어준다. 그러므로 <code>dest</code> 는 <code>n+1</code>개 만큼의 여유공간이 있어야 함</td>
+</tr>
+<tr>
+<td><code>int strcmp(const char* s1, const char* s2);</code></td>
+<td>두 문자열의 내용이 같으면 0, 아니면 0이 아닌 값 반환</td>
+<td><code>\0</code>을 포함해서 ascii값을 비교한다. <code>s1</code>이 <code>s2</code>보다 사전편찬 순서상 뒤에 위치하면 양수 반환, 그 반대면 음수 반환 ex) <code>s1</code> = &ldquo;Zebra&rdquo;, <code>s2</code>= &ldquo;Apple&rdquo; -&gt; 양수 반환</td>
+</tr>
+<tr>
+<td><code>int strncmp(const char* s1, const char* s2, size_t n);</code></td>
+<td>두 문자열의 내용이 같으면 0, 아니면 0이 아닌 값 반환</td>
+<td><code>\0</code>을 포함해서 ascii값을 비교한다. <code>s1</code>이 <code>s2</code>보다 사전편찬 순서상 뒤에 위치하면 양수 반환, 그 반대면 음수 반환 ex) <code>s1</code> = &ldquo;Zebra&rdquo;, <code>s2</code> = &ldquo;Apple&rdquo; -&gt; 양수 반환</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><code>strncpy()</code>는 널 문자 삽입을 따로 고려해줘야 한다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">strncpy(dest, src, <span style="color:#66d9ef">sizeof</span>(dest) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); <span style="color:#75715e">// NULL문자를 뺀 sizeof(dest)-1 만큼 복사(최대한 복사해서 넣어도 널문자를 위한 공간 하나 빼고 복사해야 하므로)
+</span><span style="color:#75715e"></span>dest[strlen(dest) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 문자열의 마지막 끝부분 다음에 널 문자 삽입
+</span></code></pre></div><ol start="2">
+<li><code>strcat()</code>, <code>strncat()</code>에서는 <code>src</code>의 첫부분을 <code>dest</code>의 널문자부터 덮어씌운다.</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> src <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;World&#34;</span>;
+<span style="color:#66d9ef">char</span> dest[<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>; <span style="color:#75715e">// 널문자가 차지한 공간 포함해서 3개 만큼 빈 공간이 있다.
+</span><span style="color:#75715e"></span>
+strncat(dest, src, <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// 널 문자를 반드시 마지막에 넣어줘야 하므로 최대 2개만큼 복사해서 붙여넣을 수 있다.
+</span><span style="color:#75715e"></span>puts(dest); <span style="color:#75715e">// &#34;HelloWo&#34;
+</span></code></pre></div><h2 id="stdlibh">&lt;stdlib.h&gt;<a hidden class="anchor" aria-hidden="true" href="#stdlibh">#</a></h2>
+<h3 id="문자열을-숫자로-변환--atoi-atol-atof">문자열을 숫자로 변환 : atoi(), atol(), atof()<a hidden class="anchor" aria-hidden="true" href="#문자열을-숫자로-변환--atoi-atol-atof">#</a></h3>
+<ol>
+<li><code>char*</code> -&gt; <code>int</code> : <code>int atoi(const char* str);</code></li>
+<li><code>char*</code> -&gt; <code>long</code> : <code>long atol(const char* str);</code></li>
+<li><code>char*</code> -&gt; <code>double</code> : <code>double atof(const char* str);</code></li>
+</ol>
+<h3 id="동적할당-및-해제--malloc-calloc-realloc-free">동적할당 및 해제 : malloc(), calloc(), realloc(), free()<a hidden class="anchor" aria-hidden="true" href="#동적할당-및-해제--malloc-calloc-realloc-free">#</a></h3>
+<p><code>void* malloc(size_t size);</code></p>
+<p><code>void* calloc(size_t elt_count, size_t elt_size);</code> : 블록크기(<code>elt_size</code>) * 블록개수(<code>elt_count</code>)만큼 할당하고 모든 비트를 0으로 초기화한다.</p>
+<p><code>void* realloc(void* ptr, size_t size);</code> : <code>ptr</code>이 카리키는 메모리의 크기를  <code>size</code>만큼 조절한다.</p>
+<p><code>void free(void* ptr);</code></p>
+<p><code>void free(void* ptr);</code></p>
+<ol>
+<li>
+<p>힙에 할당된 메모리공간은 포인터(즉, 주소값)를 이용해 접근할 수 밖에 없다.</p>
+</li>
+<li>
+<p>메모리 공간의 할당이 실패할 경우 <code>NULL</code>을 반환하므로 반드시 이를 체크해줘야 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>);
+<span style="color:#66d9ef">if</span> (ptr <span style="color:#f92672">==</span> NULL) {
+  <span style="color:#75715e">// 메모리 할당 실패에 따른 오류 처리
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+<li>
+<p><code>void*</code>로 반환되는 것은 주소값만을 갖고 있다는 의미이므로 이를 이용해서 참조하기 위해서는 포인터의 형변환을 해줘야 한다.</p>
+</li>
+<li>
+<p><code>realloc()</code>은 확장할 영역이 넉넉치 못할 경우, 새로운 장소에 별도로 할당하여 이전 배열에 저장된 값을 복사해서 옮겨놓고 그 메모리 주소값을 반환하기도 한다. 이 경우에는 알아서 데이터를 옮겨주고, 기존 장소는 메모리 해제해주니까 신경쓸 필요가 없다.</p>
+</li>
+</ol>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://jeddchoi.github.io/tags/c/">c</a></li>
+      <li><a href="https://jeddchoi.github.io/tags/language/">language</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://jeddchoi.github.io/posts/introduce-myself/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Introduce Myself</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://jeddchoi.github.io">Jed Choi&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

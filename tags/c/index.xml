@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>c on Jed Choi&#39;s Blog</title>
+    <link>https://jeddchoi.github.io/tags/c/</link>
+    <description>Recent content in c on Jed Choi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Nov 2021 13:11:28 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C Reference</title>
+      <link>https://jeddchoi.github.io/posts/c-reference/</link>
+      <pubDate>Tue, 02 Nov 2021 13:11:28 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/posts/c-reference/</guid>
+      <description>C 언어 참고문서</description>
+    </item>
+    
+  </channel>
+</rss>
