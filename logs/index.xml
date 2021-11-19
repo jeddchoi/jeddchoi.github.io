@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Jed Choi&#39;s Blog</title>
-    <link>https://jeddchoi.github.io/</link>
-    <description>Recent content on Jed Choi&#39;s Blog</description>
+    <title>Logs on Jed Choi&#39;s Blog</title>
+    <link>https://jeddchoi.github.io/logs/</link>
+    <description>Recent content in Logs on Jed Choi&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 19 Nov 2021 19:48:44 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://jeddchoi.github.io/logs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Refreshed Blog Site</title>
       <link>https://jeddchoi.github.io/logs/refreshed-blog-site/</link>
@@ -53,15 +52,6 @@
     </item>
     
     <item>
-      <title>C Reference</title>
-      <link>https://jeddchoi.github.io/posts/c-reference/</link>
-      <pubDate>Tue, 02 Nov 2021 13:11:28 +0900</pubDate>
-      
-      <guid>https://jeddchoi.github.io/posts/c-reference/</guid>
-      <description>C 언어 참고문서</description>
-    </item>
-    
-    <item>
       <title>C Review Start</title>
       <link>https://jeddchoi.github.io/logs/c-review-start/</link>
       <pubDate>Mon, 18 Oct 2021 19:30:32 +0900</pubDate>
@@ -78,17 +68,6 @@
       <guid>https://jeddchoi.github.io/logs/studying-from-the-bottom/</guid>
       <description>스터디카페 매일 공부 시작</description>
     </item>
-    
-    <item>
-      <title>Introduce Myself</title>
-      <link>https://jeddchoi.github.io/posts/introduce-myself/</link>
-      <pubDate>Tue, 18 May 2021 14:09:12 +0900</pubDate>
-      
-      <guid>https://jeddchoi.github.io/posts/introduce-myself/</guid>
-      <description>자기 소개</description>
-    </item>
-    
-    
     
   </channel>
 </rss>
