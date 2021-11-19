@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>logs on Jed Choi&#39;s Blog</title>
+    <link>https://jeddchoi.github.io/categories/logs/</link>
+    <description>Recent content in logs on Jed Choi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Nov 2021 15:20:39 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/categories/logs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Studying From the Bottom</title>
+      <link>https://jeddchoi.github.io/posts/studying-from-the-bottom/</link>
+      <pubDate>Fri, 19 Nov 2021 15:20:39 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/posts/studying-from-the-bottom/</guid>
+      <description>2021.10.18 ~ 2021.11.03 : C언어 복습(열혈 C 프로그래밍, 윤성우) 및 정리 2021.11.08 ~ 2021.11.17 : C언어를 활용한 자료구조 복습(열혈 자료구조, 윤성우) 2021.11.18 ~ : C++언어 복습(열혈 C++ 프</description>
+    </item>
+    
+  </channel>
+</rss>
