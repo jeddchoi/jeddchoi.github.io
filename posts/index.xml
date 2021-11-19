@@ -8,21 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Nov 2021 13:11:28 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C Reference</title>
+      <title>C 언어 참고문서</title>
       <link>https://jeddchoi.github.io/posts/c-reference/</link>
       <pubDate>Tue, 02 Nov 2021 13:11:28 +0900</pubDate>
       
       <guid>https://jeddchoi.github.io/posts/c-reference/</guid>
-      <description>C 언어 참고문서</description>
+      <description>C Reference</description>
     </item>
     
     <item>
-      <title>Introduce Myself</title>
+      <title>자기 소개</title>
       <link>https://jeddchoi.github.io/posts/introduce-myself/</link>
       <pubDate>Tue, 18 May 2021 14:09:12 +0900</pubDate>
       
       <guid>https://jeddchoi.github.io/posts/introduce-myself/</guid>
-      <description>자기 소개</description>
+      <description>최광영. 1994년생. 성균관대학교 컴퓨터공학과 졸업예정(2022.08) 저는 많은 사용자에게 좋은 서비스를 제공하기 위해 풀스택 개발자를 꿈꾸고 있습니</description>
     </item>
     
   </channel>
