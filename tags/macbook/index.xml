@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>macbook on Jed Choi&#39;s Blog</title>
+    <link>https://jeddchoi.github.io/tags/macbook/</link>
+    <description>Recent content in macbook on Jed Choi&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 29 Nov 2021 21:28:31 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/tags/macbook/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>맥북 입문자를 위한 팁</title>
+      <link>https://jeddchoi.github.io/posts/for-macbook-beginners/</link>
+      <pubDate>Mon, 29 Nov 2021 21:28:31 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/posts/for-macbook-beginners/</guid>
+      <description>For Macbook Beginners</description>
+    </item>
+    
+  </channel>
+</rss>

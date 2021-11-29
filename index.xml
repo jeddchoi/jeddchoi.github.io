@@ -6,7 +6,16 @@
     <description>Recent content on Jed Choi&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Nov 2021 19:48:44 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Nov 2021 21:28:31 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>맥북 입문자를 위한 팁</title>
+      <link>https://jeddchoi.github.io/posts/for-macbook-beginners/</link>
+      <pubDate>Mon, 29 Nov 2021 21:28:31 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/posts/for-macbook-beginners/</guid>
+      <description>For Macbook Beginners</description>
+    </item>
+    
     <item>
       <title>블로그 사이트 재개편</title>
       <link>https://jeddchoi.github.io/logs/refreshed-blog-site/</link>
