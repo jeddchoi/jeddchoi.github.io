@@ -6,7 +6,25 @@
     <description>Recent content on Jed Choi&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Nov 2021 21:28:31 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Dec 2021 19:42:10 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43; 심층 공부(전문가를 위한 C&#43;&#43;, 마크 그레고리) 시작</title>
+      <link>https://jeddchoi.github.io/logs/cpp-professional-study-start/</link>
+      <pubDate>Thu, 02 Dec 2021 19:42:10 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/logs/cpp-professional-study-start/</guid>
+      <description>Cpp Professional Study Start</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;언어 복습(열혈 C&#43;&#43; 프로그래밍, 윤성우) 끝</title>
+      <link>https://jeddchoi.github.io/logs/cpp-review-finish/</link>
+      <pubDate>Thu, 02 Dec 2021 16:19:46 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/logs/cpp-review-finish/</guid>
+      <description>Cpp Review Finish</description>
+    </item>
+    
     <item>
       <title>맥북 입문자를 위한 팁</title>
       <link>https://jeddchoi.github.io/posts/for-macbook-beginners/</link>
