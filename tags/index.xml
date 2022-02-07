@@ -6,22 +6,49 @@
     <description>Recent content in Tags on Jed Choi&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Nov 2021 21:28:31 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Feb 2022 10:40:43 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>macbook</title>
-      <link>https://jeddchoi.github.io/tags/macbook/</link>
-      <pubDate>Mon, 29 Nov 2021 21:28:31 +0900</pubDate>
+      <title>addiction</title>
+      <link>https://jeddchoi.github.io/tags/addiction/</link>
+      <pubDate>Mon, 07 Feb 2022 10:40:43 +0900</pubDate>
       
-      <guid>https://jeddchoi.github.io/tags/macbook/</guid>
+      <guid>https://jeddchoi.github.io/tags/addiction/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dns</title>
+      <link>https://jeddchoi.github.io/tags/dns/</link>
+      <pubDate>Mon, 07 Feb 2022 10:40:43 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/tags/dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>productive</title>
+      <link>https://jeddchoi.github.io/tags/productive/</link>
+      <pubDate>Mon, 07 Feb 2022 10:40:43 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/tags/productive/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tip</title>
       <link>https://jeddchoi.github.io/tags/tip/</link>
-      <pubDate>Mon, 29 Nov 2021 21:28:31 +0900</pubDate>
+      <pubDate>Mon, 07 Feb 2022 10:40:43 +0900</pubDate>
       
       <guid>https://jeddchoi.github.io/tags/tip/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>macbook</title>
+      <link>https://jeddchoi.github.io/tags/macbook/</link>
+      <pubDate>Mon, 29 Nov 2021 21:28:31 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/tags/macbook/</guid>
       <description></description>
     </item>
     

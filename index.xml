@@ -6,7 +6,43 @@
     <description>Recent content on Jed Choi&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Dec 2021 21:40:25 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Feb 2022 10:40:43 +0900</lastBuildDate><atom:link href="https://jeddchoi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>인터넷 중독을 막기 위한 방법</title>
+      <link>https://jeddchoi.github.io/posts/for-productive-internet-use/</link>
+      <pubDate>Mon, 07 Feb 2022 10:40:43 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/posts/for-productive-internet-use/</guid>
+      <description>For Productive Internet Use</description>
+    </item>
+    
+    <item>
+      <title>핵심만 골라 배우는 안드로이드 스튜디오 Arctic Fox &amp; 프로그래밍(닐 스미스) 공부 시작</title>
+      <link>https://jeddchoi.github.io/logs/android-studio-4.2-development-essentials-start/</link>
+      <pubDate>Tue, 01 Feb 2022 12:48:19 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/logs/android-studio-4.2-development-essentials-start/</guid>
+      <description>Android Studio 4.2 Development Essentials Start</description>
+    </item>
+    
+    <item>
+      <title>Java의 정석(남궁성) 공부 끝</title>
+      <link>https://jeddchoi.github.io/logs/java-standard-study-finish/</link>
+      <pubDate>Tue, 01 Feb 2022 12:46:37 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/logs/java-standard-study-finish/</guid>
+      <description>Java Standard Study Finish</description>
+    </item>
+    
+    <item>
+      <title>Java의 정석(남궁성) 공부 시작</title>
+      <link>https://jeddchoi.github.io/logs/java-standard-study-start/</link>
+      <pubDate>Fri, 24 Dec 2021 13:15:01 +0900</pubDate>
+      
+      <guid>https://jeddchoi.github.io/logs/java-standard-study-start/</guid>
+      <description>Java Standard Study Start</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43; 심층 공부(전문가를 위한 C&#43;&#43;, 마크 그레고리) 일부 내용 제외하 끝</title>
       <link>https://jeddchoi.github.io/logs/cpp-professional-study-finish/</link>
